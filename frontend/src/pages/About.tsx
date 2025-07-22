@@ -4,42 +4,68 @@ import BannerImage3 from "/about/aboutus3.webp";
 import Quote from "../components/core/Quote";
 import Footer from "../components/common/Footer";
 import AboutForm from "../components/common/AboutForm";
+import ValuesSection from "../components/core/ValuesSection";
 
 export const About = () => {
   return (
-    <div>
-      <div className="relative mx-7 mt-4  mb-4">
-        <section className="bg-slate-300 rounded-3xl mb-2">
-          <div className="relative mx-auto flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-center text-white">
-            <div className=" text-xl md:text-4xl text-black font-semibold mx-auto py-5 pb-2 text-center">
-              Driving Innovation in Online Education for a <br />
-              Brighter Future
-            </div>
+    <div className="bg-gray-100">
+      {/* Hero Banner */}
+      <div className="relative mx-7 mt-8 mb-8">
+        <section className="bg-white rounded-3xl shadow-md">
+          <div className="mx-auto flex w-11/12 max-w-maxContent flex-col items-center text-center py-12 px-4">
+            <h1 className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">
+              LearnPulse: Elevating Online Learning
+            </h1>
+            <p className="text-lg text-gray-600 max-w-3xl mb-14">
+              LearnPulse is redefining how people learn in the digital age. We
+              build engaging, practical, and impactful learning experiences that
+              empower individuals to thrive in their careers and passions.
+            </p>
 
-            <div className="mx-auto py-5 pb-10 text-xl text-center text-white">
-              LearnPulse is at the forefront of driving innovation in online
-              education. We're passionate about creating a brighter future by
-              offering cutting-edge courses, leveraging emerging technologies,
-              and nurturing a vibrant learning community.
-            </div>
-
-            <div className="sm:h-[70px] lg:h-[150px]"></div>
-
-            <div className=" absolute bottom-0 left-[50%] grid w-[100%] translate-x-[-50%] translate-y-[30%] grid-cols-3 gap-3 lg:gap-5">
-              <img src={BannerImage1} alt="" />
-              <img src={BannerImage2} alt="" />
-              <img src={BannerImage3} alt="" />
+            {/* Banner Images */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-4xl">
+              <img
+                src={BannerImage1}
+                alt="Team collaboration"
+                className="rounded-xl shadow"
+              />
+              <img
+                src={BannerImage2}
+                alt="Online education"
+                className="rounded-xl shadow"
+              />
+              <img
+                src={BannerImage3}
+                alt="Learning experience"
+                className="rounded-xl shadow"
+              />
             </div>
           </div>
         </section>
-        <section className="border-b rounded-3xl bg-slate-500">
-          <div className="mx-auto flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-richblack-500">
-            <div className="h-[100px] "></div>
-            <Quote />
+
+        {/* Our Mission Section */}
+        <section className="mt-12 bg-white rounded-3xl shadow-sm">
+          <div className="mx-auto w-11/12 max-w-maxContent py-14 px-4 text-center">
+            <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-6">
+              Our Mission
+            </h2>
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              We believe that education should be more than just information —
+              it should be transformation. Our mission is to bridge the gap
+              between knowledge and real-world application, empowering learners
+              to grow confidently with skills that matter.
+            </p>
           </div>
         </section>
       </div>
+
+      {/* Values Section */}
+      <ValuesSection />
+
+      {/* About Form */}
       <AboutForm />
+
+      {/* Footer */}
       <Footer />
     </div>
   );

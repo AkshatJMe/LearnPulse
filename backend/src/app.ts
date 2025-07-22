@@ -52,6 +52,8 @@ app.use(
   })
 );
 
+app.use(express.urlencoded({ extended: true }));
+
 // Middleware to handle file uploads
 app.use(
   fileUpload({

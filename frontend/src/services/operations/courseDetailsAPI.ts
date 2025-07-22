@@ -322,12 +322,11 @@ export const fetchInstructorCourses = async (token: string) => {
   return result;
 };
 
-export const deleteCourse = async function (data: any, token: string) {
+export const deleteCourse = async function (courseId: string, token: string) {
   try {
     const response = await apiConnector({
       method: "DELETE",
-      url: DELETE_COURSE_API,
-      bodyData: data,
+      url: DELETE_COURSE_API + `/${courseId}`,
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,

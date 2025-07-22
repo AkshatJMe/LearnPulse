@@ -1,168 +1,112 @@
 const AboutForm = () => {
   return (
-    <section className="bg-blue-50 dark:bg-slate-800 relative mx-7 mt-4 rounded-3xl mb-4">
+    <section className="bg-slate-50 relative mx-7 mt-6 rounded-3xl shadow-md mb-6">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="mb-4">
-          <div className="mb-6 max-w-3xl text-center sm:text-center md:mx-auto md:mb-12">
-            <h2 className="font-heading mb-4 font-bold tracking-tight text-gray-900 dark:text-white text-3xl sm:text-5xl">
-              Got a Idea? We've got the skills. Let's team up
+          <div className="mb-6 max-w-3xl text-center mx-auto">
+            <h2 className="font-heading mb-4 font-bold tracking-tight text-slate-800 text-3xl sm:text-5xl">
+              Let’s Build Something Great Together
             </h2>
-            <p className="mx-auto mt-4 max-w-3xl text-xl text-gray-600 dark:text-slate-400">
-              Tell us more about yourself and what you're got in mind.
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
+              Got a project idea, a startup vision, or just exploring
+              possibilities? Share your thoughts — we’re here to collaborate,
+              create, and innovate with you.
             </p>
           </div>
         </div>
+
         <div className="flex items-stretch justify-center">
-          <div className="grid md:grid-cols-2">
-            <div className="h-full pr-6">
-              <p className="mt-3 mb-12 text-lg text-gray-600 dark:text-slate-400">
-                Explore LearnPulse: Empowering learners with interactive courses
-                tailored to your goals. Dive into personalized learning today!
+          <div className="grid md:grid-cols-2 gap-10">
+            {/* Left: Contact Info */}
+            <div className="h-full pr-4">
+              <p className="mt-3 mb-12 text-base text-slate-600">
+                At LearnPulse, we value genuine connections. Whether you're
+                curious about our offerings or have something specific in mind —
+                reach out. We're just a message away.
               </p>
-              <ul className="mb-6 md:mb-0">
+              <ul className="space-y-6">
+                {/* Address */}
                 <li className="flex">
-                  <div className="flex h-10 w-10 items-center justify-center rounded bg-blue-900 text-gray-50">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-6 w-6"
-                    >
-                      <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
-                      <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"></path>
-                    </svg>
+                  <div className="flex h-10 w-10 items-center justify-center rounded bg-slate-800 text-white">
+                    📍
                   </div>
-                  <div className="ml-4 mb-4">
-                    <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                  <div className="ml-4">
+                    <h3 className="text-lg font-medium text-slate-800">
                       Our Address
                     </h3>
-                    <p className="text-gray-600 dark:text-slate-400">
-                      1230 Bhajanpura Street Delhi
-                    </p>
-                    <p className="text-gray-600 dark:text-slate-400">
-                      New Delhi, India
-                    </p>
+                    <p className="text-slate-600">1230 Bhajanpura Street</p>
+                    <p className="text-slate-600">New Delhi, India</p>
                   </div>
                 </li>
+                {/* Contact */}
                 <li className="flex">
-                  <div className="flex h-10 w-10 items-center justify-center rounded bg-blue-900 text-gray-50">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-6 w-6"
-                    >
-                      <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"></path>
-                      <path d="M15 7a2 2 0 0 1 2 2"></path>
-                      <path d="M15 3a6 6 0 0 1 6 6"></path>
-                    </svg>
+                  <div className="flex h-10 w-10 items-center justify-center rounded bg-slate-800 text-white">
+                    📞
                   </div>
-                  <div className="ml-4 mb-4">
-                    <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                  <div className="ml-4">
+                    <h3 className="text-lg font-medium text-slate-800">
                       Contact
                     </h3>
-                    <p className="text-gray-600 dark:text-slate-400">
-                      Mobile: +1 (123) 456-7890
-                    </p>
-                    <p className="text-gray-600 dark:text-slate-400">
-                      Mail: realakshatjain@gmail.com
-                    </p>
+                    <p className="text-slate-600">+91 98765 43210</p>
+                    <p className="text-slate-600">hello@learnpulse.io</p>
                   </div>
                 </li>
+                {/* Hours */}
                 <li className="flex">
-                  <div className="flex h-10 w-10 items-center justify-center rounded bg-blue-900 text-gray-50">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="h-6 w-6"
-                    >
-                      <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"></path>
-                      <path d="M12 7v5l3 3"></path>
-                    </svg>
+                  <div className="flex h-10 w-10 items-center justify-center rounded bg-slate-800 text-white">
+                    🕒
                   </div>
-                  <div className="ml-4 mb-4">
-                    <h3 className="mb-2 text-lg font-medium leading-6 text-gray-900 dark:text-white">
-                      Working hours
+                  <div className="ml-4">
+                    <h3 className="text-lg font-medium text-slate-800">
+                      Working Hours
                     </h3>
-                    <p className="text-gray-600 dark:text-slate-400">
-                      Monday - Friday: 08:00 - 17:00
-                    </p>
-                    <p className="text-gray-600 dark:text-slate-400">
-                      Saturday &amp; Sunday: 08:00 - 12:00
-                    </p>
+                    <p className="text-slate-600">Mon–Fri: 9:00 – 18:00</p>
+                    <p className="text-slate-600">Sat–Sun: Closed</p>
                   </div>
                 </li>
               </ul>
             </div>
-            <div className="card h-fit max-w-6xl p-5 md:p-12" id="form">
-              <h2 className="mb-4 text-2xl font-bold dark:text-white">
-                Ready to Get Started?
+
+            {/* Right: Form */}
+            <div className="card bg-white h-fit p-5 md:p-10 rounded-lg shadow">
+              <h2 className="mb-4 text-2xl font-semibold text-slate-800">
+                Start the Conversation
               </h2>
               <form id="contactForm">
                 <div className="mb-6">
-                  <div className="mx-0 mb-1 sm:mb-4">
-                    <label
-                      htmlFor="name"
-                      className="pb-1 text-xs uppercase tracking-wider"
-                    ></label>
+                  <div className="mb-4">
                     <input
                       type="text"
                       id="name"
-                      autoComplete="given-name"
+                      autoComplete="name"
                       placeholder="Your name"
-                      className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md dark:text-gray-300 sm:mb-0"
+                      className="w-full rounded-md border border-slate-300 py-2 px-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-500"
                       name="name"
                     />
                   </div>
-                  <div className="mx-0 mb-1 sm:mb-4">
-                    <label
-                      htmlFor="email"
-                      className="pb-1 text-xs uppercase tracking-wider"
-                    ></label>
+                  <div className="mb-4">
                     <input
                       type="email"
                       id="email"
                       autoComplete="email"
                       placeholder="Your email address"
-                      className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md dark:text-gray-300 sm:mb-0"
+                      className="w-full rounded-md border border-slate-300 py-2 px-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-500"
                       name="email"
                     />
                   </div>
-                </div>
-                <div className="mx-0 mb-1 sm:mb-4">
-                  <label
-                    htmlFor="textarea"
-                    className="pb-1 text-xs uppercase tracking-wider"
-                  ></label>
-                  <textarea
-                    id="textarea"
-                    placeholder="Write your message..."
-                    className="mb-2 w-full rounded-md border border-gray-400 py-2 pl-2 pr-4 shadow-md dark:text-gray-300 sm:mb-0"
-                  ></textarea>
+                  <div className="mb-4">
+                    <textarea
+                      id="textarea"
+                      placeholder="Tell us what you’re thinking..."
+                      rows={5}
+                      className="w-full rounded-md border border-slate-300 py-2 px-4 shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-500"
+                    ></textarea>
+                  </div>
                 </div>
                 <div className="text-center">
                   <button
                     type="submit"
-                    className="w-full bg-blue-800 text-white px-6 py-3 font-xl rounded-md sm:mb-0"
+                    className="w-full bg-slate-800 text-white px-6 py-3 rounded-md hover:bg-slate-700 transition"
                   >
                     Send Message
                   </button>

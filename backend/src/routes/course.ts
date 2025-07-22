@@ -99,7 +99,7 @@ app.post("/editCourse", auth, isInstructor, editCourse);
 
 // Route for deleting a course
 // This route is accessible only to authenticated instructors
-app.delete("/deleteCourse", auth, isInstructor, deleteCourse);
+app.delete("/deleteCourse/:courseId", auth, isInstructor, deleteCourse);
 
 // Route for updating course progress
 // This route is accessible only to authenticated students

@@ -51,17 +51,6 @@ export default function MyCourses() {
         </Button>
       </div>
 
-      {/* course Table */}
-      {/* {courses && (
-        <CoursesTable
-          courses={courses}
-          //@ts-ignore
-          setCourses={setCourses}
-          loading={loading}
-          setLoading={setLoading}
-        />
-      )} */}
-
       <Card className="py-4">
         <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
           <h4 className="font-bold text-large">Courses</h4>

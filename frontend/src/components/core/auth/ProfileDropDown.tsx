@@ -7,6 +7,7 @@ import {
   VscSignOut,
   VscSymbolConstant,
 } from "react-icons/vsc";
+import { TbLayoutDashboard } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -102,6 +103,17 @@ export default function ProfileDropdown() {
 
           {user && user?.accountType === "admin" && (
             <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
+              <Link to="dashboard/admin" onClick={() => setOpen(false)}>
+                <div className="flex gap-1">
+                  <TbLayoutDashboard className="text-lg" />
+                  Dashboard
+                </div>
+              </Link>
+            </div>
+          )}
+
+          {user && user?.accountType === "admin" && (
+            <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
               <Link
                 to="/dashboard/create-category"
                 onClick={() => setOpen(false)}
@@ -113,6 +125,7 @@ export default function ProfileDropdown() {
               </Link>
             </div>
           )}
+
           {user && user?.accountType === "admin" && (
             <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
               <Link to="dashboard/all-students" onClick={() => setOpen(false)}>

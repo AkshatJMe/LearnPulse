@@ -431,7 +431,9 @@ export const getInstructorCourses = async (req: Request, res: Response) => {
 export const deleteCourse = async (req: Request, res: Response) => {
   try {
     // Extract course ID from request body
-    const { courseId } = req.body;
+    const { courseId } = req.params;
+
+    console.log(req.params);
 
     // Find the course to delete
     const course = await Course.findById(courseId);

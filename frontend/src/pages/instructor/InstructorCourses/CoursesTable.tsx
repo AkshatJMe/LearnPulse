@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { useDispatch, useSelector } from "react-redux";
 import { useTable, useSortBy } from "react-table";
 import React, { useState } from "react";

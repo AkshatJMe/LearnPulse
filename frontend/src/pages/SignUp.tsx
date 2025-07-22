@@ -12,7 +12,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [accType, setaccType] = useState("instructor");
+  const [accType, setaccType] = useState("student");
   // Corrected syntax for useState with type annotation
   const [formData, setFormData] = useState<SignupFormData>({
     firstName: "",
@@ -71,25 +71,16 @@ const SignUp = () => {
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <Tabs
-          key={"default"}
-          color={"primary"}
-          aria-label="Tabs colors"
+          selectedKey={accType}
+          onSelectionChange={(key) =>
+            setaccType(key as "student" | "instructor")
+          }
+          color="primary"
           radius="full"
+          aria-label="Signup Tabs"
         >
-          <Tab
-            key="student"
-            onClick={() => {
-              setaccType("student");
-            }}
-            title="Student"
-          />
-          <Tab
-            key="instructor"
-            onClick={() => {
-              setaccType("instructor");
-            }}
-            title="Instructor"
-          />
+          <Tab key="student" title="Student" />
+          <Tab key="instructor" title="Instructor" />
         </Tabs>
         <form className="space-y-6" onSubmit={handleOnSubmit} method="POST">
           <div>

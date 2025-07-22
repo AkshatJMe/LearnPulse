@@ -6,7 +6,7 @@ const AddCourse = () => {
     <div className="flex w-full items-start gap-x-8 p-12">
       <div className="flex flex-1 flex-col">
         <h1 className="mb-14 text-3xl font-medium text-richblack-5 font-boogaloo text-center lg:text-left">
-          Add Course
+          Create a New Course
         </h1>
 
         <div className="flex-1">
@@ -18,26 +18,22 @@ const AddCourse = () => {
         <CardHeader>
           <div className="flex flex-col">
             <p className="mb-8 text-lg text-richblack-5">
-              ⚡ Course Upload Tips
+              💡 Tips for Publishing Your Course
             </p>
           </div>
         </CardHeader>
         <Divider />
         <CardBody className="ml-5 list-item list-disc space-y-4 text-richblack-5">
-          <li>Set the Course Price option or make it free.</li>
-          <li>Standard size for the course thumbnail is 1024x576.</li>
-          <li>Video section controls the course overview video.</li>
-          <li>Course Builder is where you create & organize a course.</li>
+          <li>Choose a pricing option or make your course free.</li>
+          <li>Use a 1024×576 image for the course thumbnail.</li>
+          <li>Add an overview video in the video section.</li>
+          <li>Use the Course Builder to add and organize content.</li>
+          <li>Create lessons, quizzes, and assignments under each topic.</li>
           <li>
-            Add Topics in the Course Builder section to create lessons,quizzes,
-            and assignments.
+            The “Additional Info” section appears on the course details page.
           </li>
-          <li>
-            Information from the Additional Data section shows up on thecourse
-            single page.
-          </li>
-          <li>Make Announcements to notify any important</li>
-          <li>Notes to all enrolled students at once.</li>
+          <li>Post announcements to update all enrolled students.</li>
+          <li>Use course notes to share key resources or instructions.</li>
         </CardBody>
       </Card>
     </div>

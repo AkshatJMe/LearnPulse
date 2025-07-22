@@ -50,7 +50,7 @@ export default function PublishCourse() {
 
   const goToCourses = () => {
     dispatch(resetCourseState());
-    navigate("/dashboard/my-courses");
+    navigate("/dashboard/instructor");
   };
 
   const handleCoursePublish = async () => {

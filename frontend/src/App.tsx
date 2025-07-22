@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Home from "./pages/Home";
 import Navbar from "./components/common/Navbar";
 import { About } from "./pages/About";
-import SignUp from "./pages/Signup";
+import SignUp from "./pages/SignUp";
 import LoginPage from "./pages/Login";
 import VerifyEmail from "./pages/VerifyEmail";
 import MyProfile from "./pages/dashboard/MyProfile";
@@ -22,6 +22,7 @@ import MyCourses from "./pages/instructor/MyCourses";
 import Instructor from "./pages/instructor/Instructor";
 import EnrolledCourses from "./pages/student/EnrolledCourses";
 import OpenRoute from "./components/core/auth/OpenRoute";
+import AdminDashboard from "./pages/dashboard/AdminDashboard";
 
 function App() {
   // @ts-ignore
@@ -96,6 +97,8 @@ function App() {
               path="dashboard/all-instructors"
               element={<AllInstructors />}
             />
+
+            <Route path="dashboard/admin" element={<AdminDashboard />} />
           </>
         )}
 

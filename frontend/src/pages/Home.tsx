@@ -3,6 +3,7 @@ import { Button } from "@nextui-org/react";
 import FAQPage from "../components/common/FAQ";
 import Footer from "../components/common/Footer";
 import SignupSection from "../components/core/SignupSection";
+import FeaturesSection from "../components/core/FeaturesSection";
 
 const Home = () => {
   return (
@@ -64,6 +65,8 @@ const Home = () => {
       <div className="bg-gray-200 mx-7 mt-4 rounded-3xl mb-4 relative">
         <SignupSection />
       </div>
+
+      <FeaturesSection />
 
       {/* FAQ section */}
       <div className="bg-gray-200 mx-7 mt-4 rounded-3xl mb-4 relative">
