@@ -11,7 +11,9 @@ import {
   getFullCourseDetails, // Function to get full details of a course
   editCourse, // Function to handle course updates
   deleteCourse, // Function to handle course deletion
-  getInstructorCourses, // Function to get all courses taught by a specific instructor
+  getInstructorCourses,
+  getCoursesByCategory,
+  buyCourse, // Function to get all courses taught by a specific instructor
 } from "../controllers/course.js";
 
 // Importing controller function for handling course progress updates
@@ -85,6 +87,10 @@ app.post("/getCourseDetails", getCourseDetails);
 // This route is accessible to anyone (public route)
 app.get("/getAllCourses", getAllCourses);
 
+// Route for getting a list of all courses by category
+// This route is accessible to anyone (public route)
+app.post("/getAllCoursesByCategory", getCoursesByCategory);
+
 // Route for getting full details of a course
 // This route is accessible only to authenticated users
 app.post("/getFullCourseDetails", auth, getFullCourseDetails);
@@ -132,6 +138,9 @@ app.get("/getAverageRating", getAverageRating);
 // Route for getting all reviews for a course
 // This route is accessible to anyone (public route)
 app.get("/getReviews", getAllRatingReview);
+
+// Route for buy course
+app.post("/buyCourse", auth, isStudent, buyCourse);
 
 // Exporting the router instance to be used in the main application
 export default app;

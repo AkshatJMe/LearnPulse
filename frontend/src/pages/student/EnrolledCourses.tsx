@@ -1,13 +1,14 @@
-//@ts-nocheck
+// @ts-nocheck
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { getUserEnrolledCourses } from "../../services/operations/profileAPI";
-import { Card, CardHeader, Image } from "@nextui-org/react";
+import { X } from "lucide-react"; // For close icon
 
 const EnrolledCourses = () => {
   const { token } = useSelector((state) => state.auth);
-
   const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+
   const getEnrolledCourses = async () => {
     try {
       const res = await getUserEnrolledCourses(token);
@@ -21,37 +22,106 @@ const EnrolledCourses = () => {
     getEnrolledCourses();
   }, []);
 
-  if (enrolledCourses?.length == 0) {
-    return (
-      <p className="grid h-[50vh] w-full place-content-center text-center text-richblack-5 text-3xl">
-        You have not enrolled in any course yet.
-      </p>
-    );
-  }
-
   return (
-    <div className="m-8">
-      {enrolledCourses.map((course) => (
-        <Card key={course._id} className="w-full mb-4">
-          <CardHeader className="flex gap-3">
-            <Image
-              alt="course image"
-              height={40}
-              radius="sm"
-              src={course.thumbnail}
-              width={40}
-            />
-            <div className="flex flex-col">
-              <p className="text-md">{course.courseName}</p>{" "}
-              {/* Adjust according to your course object properties */}
-              <p className="text-small text-default-500">
-                {course.courseDescription}
-              </p>{" "}
-              {/* Adjust according to your course object properties */}
+    <div className="w-full min-h-screen bg-background py-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20">
+        {enrolledCourses.map((course) => (
+          <div
+            key={course._id}
+            onClick={() => setSelectedCourse(course)}
+            className="cursor-pointer group transition-transform duration-200 hover:scale-[1.03]"
+          >
+            <div className="relative w-full aspect-video rounded-lg overflow-hidden shadow-md">
+              <img
+                src={course.thumbnail}
+                alt={course.courseName}
+                className="w-full h-full object-cover"
+              />
             </div>
-          </CardHeader>
-        </Card>
-      ))}
+            <div className="flex mt-3 gap-3">
+              <div className="h-10 w-10 rounded-full bg-gray-300 shrink-0" />
+              <div className="flex flex-col text-foreground">
+                <h3 className="font-semibold text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">
+                  {course.courseName}
+                </h3>
+                <p className="text-sm text-default-500">Instructor</p>
+                <p className="text-xs text-default-400 mt-0.5">
+                  ₹{course.price}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ========================= */}
+      {/* 🔥 Course Preview Modal */}
+      {/* ========================= */}
+      {selectedCourse && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center px-4">
+          <div className="bg-white max-w-4xl w-full rounded-lg overflow-y-auto max-h-[90vh] relative p-6 shadow-xl">
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedCourse(null)}
+              className="absolute top-3 right-3 text-gray-600 hover:text-black"
+            >
+              <X size={24} />
+            </button>
+
+            {/* Course Preview */}
+            <div className="flex flex-col lg:flex-row gap-6">
+              {/* Thumbnail */}
+              <div className="lg:w-1/2">
+                <img
+                  src={selectedCourse.thumbnail}
+                  alt={selectedCourse.courseName}
+                  className="rounded-lg w-full object-cover"
+                />
+              </div>
+
+              {/* Course Info */}
+              <div className="lg:w-1/2 flex flex-col gap-3">
+                <h2 className="text-2xl font-bold text-gray-800">
+                  {selectedCourse.courseName}
+                </h2>
+                <p className="text-sm text-gray-700 whitespace-pre-line">
+                  {selectedCourse.courseDescription}
+                </p>
+
+                <div>
+                  <h3 className="font-semibold mt-4 text-gray-800">
+                    What you will learn:
+                  </h3>
+                  <ul className="list-disc pl-4 text-sm text-gray-700 mt-1 whitespace-pre-line">
+                    {selectedCourse.whatYouWillLearn
+                      .split("\r\n")
+                      .map((point, i) => (
+                        <li key={i}>{point}</li>
+                      ))}
+                  </ul>
+                </div>
+
+                {selectedCourse.instructions?.length > 0 && (
+                  <div>
+                    <h3 className="font-semibold mt-4 text-gray-800">
+                      Prerequisites:
+                    </h3>
+                    <ul className="list-disc pl-4 text-sm text-gray-700 mt-1">
+                      {selectedCourse.instructions.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <div className="mt-4 text-lg font-semibold text-green-600">
+                  Course Preview
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

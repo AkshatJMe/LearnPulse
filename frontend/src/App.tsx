@@ -23,6 +23,8 @@ import Instructor from "./pages/instructor/Instructor";
 import EnrolledCourses from "./pages/student/EnrolledCourses";
 import OpenRoute from "./components/core/auth/OpenRoute";
 import AdminDashboard from "./pages/dashboard/AdminDashboard";
+import CategoryType from "./pages/CategoryType";
+import CoursePreview from "./pages/CoursePreview";
 
 function App() {
   // @ts-ignore
@@ -34,6 +36,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="catalog/:id" element={<CategoryType />} />
 
         <Route
           path="signup"
@@ -83,6 +86,7 @@ function App() {
           <>
             <Route path="/dashboard/my-profile" element={<MyProfile />} />
             <Route path="/dashboard/Settings" element={<Settings />} />
+            <Route path="/course/:courseId" element={<CoursePreview />} />
           </>
         )}
 

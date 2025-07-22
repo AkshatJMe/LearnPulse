@@ -129,6 +129,76 @@ export const createCourse = async (req: Request, res: Response) => {
   }
 };
 
+// Handle to buy course dummy API
+export const buyCourse = async (req: Request, res: Response) => {
+  try {
+    const userId = req.user?.id;
+    const { courseId } = req.body;
+
+    console.log(userId, courseId);
+
+    // Validate input
+    if (!courseId) {
+      return res.status(400).json({
+        success: false,
+        message: "Course ID is required",
+      });
+    }
+
+    // Find user and course
+    const user = await User.findById(userId);
+    const course = await Course.findById(courseId);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    if (!course) {
+      return res.status(404).json({
+        success: false,
+        message: "Course not found",
+      });
+    }
+
+    // Check if already enrolled
+    // @ts-ignore
+    if (user?.courses.includes(courseId)) {
+      return res.status(400).json({
+        success: false,
+        message: "User already enrolled in this course",
+      });
+    }
+
+    // Add course to user's list
+    //@ts-ignore
+    user.courses.push(courseId);
+    await user.save();
+
+    // Add user to course's enrolled list
+    //@ts-ignore
+    course.studentsEnrolled.push(userId);
+    await course.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Course purchased successfully",
+      data: {
+        courseId: course._id,
+        userId: user._id,
+      },
+    });
+  } catch (error) {
+    console.error("Buy Course Error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Failed to purchase course",
+    });
+  }
+};
+
 // Handler to get all courses
 export const getAllCourses = async (req: Request, res: Response) => {
   try {
@@ -162,6 +232,107 @@ export const getAllCourses = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: "Error while fetching data of all courses",
+    });
+  }
+};
+
+// export const getCoursesByCategory = async (req: Request, res: Response) => {
+//   try {
+//     const { category } = req.body;
+
+//     console.log(req.body);
+
+//     if (!category) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "category is required in the request body",
+//       });
+//     }
+
+//     // Find courses by category
+//     const allCourses = await Course.find(
+//       { category }, // Filtering condition
+//       {
+//         courseName: true,
+//         courseDescription: true,
+//         price: true,
+//         thumbnail: true,
+//         instructor: true,
+//         ratingAndReviews: true,
+//         studentsEnrolled: true,
+//       }
+//     )
+//       .populate({
+//         path: "instructor",
+//         select: "firstName lastName email image",
+//       })
+//       .exec();
+
+//     return res.status(200).json({
+//       success: true,
+//       data: allCourses,
+//       message: "Courses fetched successfully for the given category",
+//     });
+//   } catch (error) {
+//     console.error("Error fetching courses:", error);
+//     return res.status(500).json({
+//       success: false,
+//       message: "Internal server error while fetching courses",
+//     });
+//   }
+// };
+
+// utility function
+
+export const getCoursesByCategory = async (req: Request, res: Response) => {
+  try {
+    const { category } = req.body; // from route: /category/:categorySlug
+
+    if (!category) {
+      return res.status(400).json({
+        success: false,
+        message: "category slug is required in the URL",
+      });
+    }
+    // Step 1: Find category document by name
+    const categoryDoc = await Category.findOne({ name: category });
+
+    if (!categoryDoc) {
+      return res.status(404).json({
+        success: false,
+        message: `No category found with name ${category}`,
+      });
+    }
+
+    // Step 2: Find all courses that belong to this category
+    const allCourses = await Course.find(
+      { category: categoryDoc._id },
+      {
+        courseName: true,
+        courseDescription: true,
+        price: true,
+        thumbnail: true,
+        instructor: true,
+        ratingAndReviews: true,
+        studentsEnrolled: true,
+      }
+    )
+      .populate({
+        path: "instructor",
+        select: "firstName lastName email image",
+      })
+      .exec();
+
+    return res.status(200).json({
+      success: true,
+      data: allCourses,
+      message: `Courses for category "${category}" fetched successfully.`,
+    });
+  } catch (error) {
+    console.error("Error fetching courses:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error while fetching courses",
     });
   }
 };

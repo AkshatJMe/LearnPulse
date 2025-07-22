@@ -6,6 +6,7 @@ const {
   COURSE_DETAILS_API,
   COURSE_CATEGORIES_API,
   GET_ALL_COURSE_API,
+  COURSE_CATEGORIES_TYPE_API,
   CREATE_COURSE_API,
   EDIT_COURSE_API,
   CREATE_SECTION_API,
@@ -21,6 +22,7 @@ const {
   LECTURE_COMPLETION_API,
   CREATE_NEW_CATEGORY,
   DELETE_CATEGORY,
+  BUY_COURSE,
 } = courseEndpoints;
 
 export const createNewCategory = async function (
@@ -95,13 +97,55 @@ export const getAllCourses = async () => {
   return result;
 };
 
-export const fetchCourseDetails = async (categoryId: string) => {
+export async function buyCourses(token: string, courseId: string) {
+  try {
+    const response = await apiConnector({
+      method: "POST",
+      url: BUY_COURSE,
+      bodyData: { courseId },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log("Here", response);
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    }
+  } catch (error) {}
+  return;
+}
+
+export const fetchCourseDetails = async (courseId: string) => {
   let result: any;
   try {
     const response = await apiConnector({
       method: "POST",
       url: COURSE_DETAILS_API,
-      bodyData: { categoryId },
+      bodyData: { courseId },
+    });
+
+    if (!response?.data?.success) {
+      console.log("Could Not fetch course details");
+    }
+    result = response;
+  } catch (error) {
+    toast.error("Error in getting course data");
+  }
+  return result;
+};
+
+export const fetchCoursesByCategory = async (category: string) => {
+  let result: any;
+
+  console.log(category);
+
+  try {
+    const response = await apiConnector({
+      method: "POST",
+      url: COURSE_CATEGORIES_TYPE_API,
+      bodyData: { category },
     });
 
     if (!response?.data?.success) {

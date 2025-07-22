@@ -36,6 +36,7 @@ export const courseEndpoints = {
   COURSE_DETAILS_API: SERVER_URL + "/course/getCourseDetails",
   EDIT_COURSE_API: SERVER_URL + "/course/editCourse",
   COURSE_CATEGORIES_API: SERVER_URL + "/course/showAllCategories",
+  COURSE_CATEGORIES_TYPE_API: SERVER_URL + "/course/getAllCoursesByCategory",
   CREATE_COURSE_API: SERVER_URL + "/course/createCourse",
   CREATE_SECTION_API: SERVER_URL + "/course/addSection",
   CREATE_SUBSECTION_API: SERVER_URL + "/course/addSubSection",
@@ -51,6 +52,7 @@ export const courseEndpoints = {
   CREATE_RATING_API: SERVER_URL + "/course/createRating",
   CREATE_NEW_CATEGORY: SERVER_URL + "/course/createCategory",
   DELETE_CATEGORY: SERVER_URL + "/course/deleteCategory",
+  BUY_COURSE: SERVER_URL + "/course/buyCourse",
 };
 
 // RATINGS AND REVIEWS
