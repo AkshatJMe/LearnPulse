@@ -1,7 +1,6 @@
 import BannerImage1 from "/about/aboutus1.webp";
 import BannerImage2 from "/about/aboutus2.webp";
 import BannerImage3 from "/about/aboutus3.webp";
-import Quote from "../components/core/Quote";
 import Footer from "../components/common/Footer";
 import AboutForm from "../components/common/AboutForm";
 import ValuesSection from "../components/core/ValuesSection";

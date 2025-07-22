@@ -12,6 +12,7 @@ const UpdatePassword = () => {
   const {
     register,
     handleSubmit,
+    //@ts-ignore
     formState: { errors },
   } = useForm();
 

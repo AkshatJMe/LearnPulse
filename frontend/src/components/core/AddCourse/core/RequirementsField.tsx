@@ -11,13 +11,6 @@ interface RequirementsFieldProps {
   errors: { [key: string]: { message: string } };
 }
 
-interface CourseState {
-  editCourse: boolean;
-  course: {
-    instructions: string[];
-  };
-}
-
 const RequirementsField: React.FC<RequirementsFieldProps> = ({
   name,
   label,

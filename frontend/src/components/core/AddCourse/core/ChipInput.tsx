@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 export default function ChipInput({
   label,
   name,
-  placeholder,
+  placeholdere,
   register,
   errors,
   setValue,
@@ -98,7 +98,7 @@ export default function ChipInput({
               id={name}
               name={name}
               type="text"
-              placeholder={placeholder}
+              placeholder={placeholdere}
               onKeyDown={handleKeyDown}
               placeholder="Enter Tags and Press Enter or Comma"
               className="w-full"

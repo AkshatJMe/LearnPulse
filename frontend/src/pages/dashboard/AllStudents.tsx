@@ -33,6 +33,7 @@ const AllStudents = () => {
 
   useEffect(() => {
     const fetchAllStudents = async () => {
+      //@ts-ignore
       const { allStudentsDetails, studentsCount } = await getAllStudentsData(
         token
       );
