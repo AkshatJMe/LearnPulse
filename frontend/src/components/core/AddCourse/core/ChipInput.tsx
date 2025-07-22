@@ -98,7 +98,6 @@ export default function ChipInput({
               id={name}
               name={name}
               type="text"
-              placeholder={placeholdere}
               onKeyDown={handleKeyDown}
               placeholder="Enter Tags and Press Enter or Comma"
               className="w-full"
