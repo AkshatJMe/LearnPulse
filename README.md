@@ -5,35 +5,35 @@ The platform is built using the **MERN stack**, which includes ReactJS, NodeJS, 
 
 ## Schema 📋
 
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/schema/schema.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/schema/schema.png' />
 
 ## Tech Stack 💻🔧
 
 ### Frontend 🎨 :
 
-<code title="React.js"><img height="40" src="https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/react%20ogo.png"></code>
+<code title="React.js"><img height="40" src="https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/react%20ogo.png"></code>
 
-<code title="Vite"><img height="40" src="https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/Vitejs-logo.png"></code>
+<code title="Vite"><img height="40" src="https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/Vitejs-logo.png"></code>
 
-<code title="Redux.js"><img height="35" src="https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/redux-logo.png"></code>
+<code title="Redux.js"><img height="35" src="https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/redux-logo.png"></code>
 
-<code title="CSS"><img height="40" src="https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/css%20logo.png"></code>
+<code title="CSS"><img height="40" src="https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/css%20logo.png"></code>
 
-<code title="Tailwind CSS"><img height="35" src="https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/tailwind%20css%20logo.png"></code>
+<code title="Tailwind CSS"><img height="35" src="https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/tailwind%20css%20logo.png"></code>
 
 ### Backend ⚙️ :
 
-<code title="Node.js"><img height="50" src="https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/nodejs-logo.png"></code>
+<code title="Node.js"><img height="50" src="https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/nodejs-logo.png"></code>
 
-<code title="Express"><img height="70" src="https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/express%20logo.png"></code>
+<code title="Express"><img height="70" src="https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/express%20logo.png"></code>
 
 ### Database 🛢️ :
 
-<code title="MongoDB"><img height="40" src="https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/mongodb%20logo.png"></code>
+<code title="MongoDB"><img height="40" src="https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/mongodb%20logo.png"></code>
 
 ### Cloudinary Integration ☁️
 
-<code title="Cloudinary"><img height="40" src="https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/cloudinary-logo.jpg"></code>
+<code title="Cloudinary"><img height="40" src="https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/Tech%20stack%20logo/cloudinary-logo.jpg"></code>
 
 <hr/>
 
@@ -75,39 +75,39 @@ The back-end of LearnPulse is built with NodeJS and ExpressJS, providing APIs fo
 
 ### Random Home Page Background 🏠
 
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/home1.png' />
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/home2.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/home1.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/home2.png' />
 
 ### Signup Page
 
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/signup.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/signup.png' />
 
 ### Login Page
 
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/login.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/login.png' />
 
 ### Profile
 
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/profile.png' />
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/setting1.png' />
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/setting2.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/profile.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/setting1.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/setting2.png' />
 
 ### Course
 
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/addcourse1.png' />
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/addcourse2.png' />
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/mycourses.png' />
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/coursebuilder.png' />
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/coursedone.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/addcourse1.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/addcourse2.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/mycourses.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/coursebuilder.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/coursedone.png' />
 
 ### Admin Category
 
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/admin_category.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/admin_category.png' />
 
 ### About Page
 
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/aboutus.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/aboutus.png' />
 
 ## Email Templates
 
-<img width='100%' src='https://github.com/HiAkshatJain/LearnPulse/blob/main/screenshot/mail-template.png' />
+<img width='100%' src='https://github.com/AkshatJMe/LearnPulse/blob/main/screenshot/mail-template.png' />
