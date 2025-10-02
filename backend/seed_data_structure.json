@@ -1,0 +1,280 @@
+{
+  "seedData": {
+    "description": "Complete seed data structure for LearnPulse EdTech Platform",
+    "collections": {
+      "users": {
+        "count": 10,
+        "structure": {
+          "firstName": "String",
+          "lastName": "String",
+          "email": "String (unique)",
+          "password": "String (hashed in production)",
+          "accountType": "admin | instructor | student",
+          "additionalDetails": "ObjectId -> Profile",
+          "image": "String (URL)",
+          "active": "Boolean",
+          "approved": "Boolean",
+          "courses": "Array[ObjectId] - For instructors only",
+          "totalRevenue": "Number - For instructors only"
+        },
+        "examples": {
+          "admin": {
+            "firstName": "Admin",
+            "lastName": "User",
+            "email": "admin@learnpulse.com",
+            "accountType": "admin",
+            "totalRevenue": null
+          },
+          "instructor": {
+            "firstName": "Rahul",
+            "lastName": "Kumar",
+            "email": "rahul@instructor.com",
+            "accountType": "instructor",
+            "totalRevenue": 125000,
+            "courses": ["ObjectId1", "ObjectId2"]
+          },
+          "student": {
+            "firstName": "Sarah",
+            "lastName": "Johnson",
+            "email": "sarah@student.com",
+            "accountType": "student",
+            "courses": [],
+            "totalRevenue": null
+          }
+        }
+      },
+      "profiles": {
+        "count": 10,
+        "structure": {
+          "gender": "String",
+          "dateOfBirth": "String (YYYY-MM-DD)",
+          "about": "String",
+          "contactNumber": "Number"
+        },
+        "example": {
+          "gender": "Male",
+          "dateOfBirth": "1990-05-15",
+          "about": "Passionate software developer and educator",
+          "contactNumber": 9876543210
+        }
+      },
+      "categories": {
+        "count": 6,
+        "structure": {
+          "name": "String",
+          "description": "String",
+          "courses": "Array[ObjectId]"
+        },
+        "examples": [
+          {
+            "name": "Web Development",
+            "description": "Learn HTML, CSS, JavaScript, and frameworks"
+          },
+          {
+            "name": "Mobile Development",
+            "description": "iOS, Android, React Native, Flutter"
+          },
+          {
+            "name": "Data Science",
+            "description": "Python, Data Analysis, Machine Learning"
+          },
+          {
+            "name": "Cloud & DevOps",
+            "description": "AWS, Docker, Kubernetes, CI/CD"
+          },
+          {
+            "name": "UI/UX Design",
+            "description": "Design principles, Figma, User Experience"
+          },
+          {
+            "name": "Cybersecurity",
+            "description": "Network security, Ethical hacking, Compliance"
+          }
+        ]
+      },
+      "courses": {
+        "count": 6,
+        "structure": {
+          "courseName": "String",
+          "courseDescription": "String",
+          "instructor": "ObjectId -> User",
+          "whatYouWillLearn": "Array[String]",
+          "courseContent": "Array[ObjectId] - Not populated (empty)",
+          "ratingAndReviews": "Array[ObjectId -> RatingAndReview]",
+          "price": "Number",
+          "thumbnail": "String (URL)",
+          "category": "ObjectId -> Category",
+          "tag": "Array[String]",
+          "studentsEnrolled": "Array[ObjectId -> User]",
+          "instructions": "Array[String]",
+          "status": "Draft | Published | Pending | Rejected",
+          "averageRating": "Number (0-5)",
+          "totalRatings": "Number (count of reviews)"
+        },
+        "example": {
+          "courseName": "Complete Web Development Bootcamp",
+          "courseDescription": "Master modern web development with HTML, CSS, JavaScript, React, Node.js and MongoDB",
+          "price": 15000,
+          "status": "Published",
+          "averageRating": 4.5,
+          "totalRatings": 8,
+          "tag": ["web", "javascript", "react", "nodejs"],
+          "instructor": "ObjectId",
+          "category": "ObjectId",
+          "studentsEnrolled": ["ObjectId1", "ObjectId2", "ObjectId3", "ObjectId4"],
+          "ratingAndReviews": ["ObjectId1", "ObjectId2", "ObjectId3"]
+        }
+      },
+      "ratingandreviews": {
+        "count": 33,
+        "structure": {
+          "user": "ObjectId -> User (Student who reviewed)",
+          "rating": "Number (1-5)",
+          "review": "String",
+          "course": "ObjectId -> Course",
+          "isApproved": "Boolean",
+          "isRemoved": "Boolean",
+          "createdAt": "Date (auto)",
+          "updatedAt": "Date (auto)"
+        },
+        "example": {
+          "rating": 5,
+          "review": "Excellent course! The instructor explains concepts very clearly and the projects are practical and engaging.",
+          "user": "ObjectId",
+          "course": "ObjectId",
+          "isApproved": true,
+          "isRemoved": false
+        }
+      }
+    },
+    "relationships": {
+      "user_to_profile": {
+        "description": "Each user has exactly one profile",
+        "field": "User.additionalDetails -> Profile._id"
+      },
+      "instructor_to_courses": {
+        "description": "Each instructor created one or more courses",
+        "field": "User.courses -> Array[Course._id]",
+        "note": "Updated after courses are created"
+      },
+      "course_to_instructor": {
+        "description": "Each course is taught by one instructor",
+        "field": "Course.instructor -> User._id"
+      },
+      "course_to_category": {
+        "description": "Each course belongs to one category",
+        "field": "Course.category -> Category._id"
+      },
+      "course_to_students": {
+        "description": "Each course has multiple enrolled students",
+        "field": "Course.studentsEnrolled -> Array[User._id]"
+      },
+      "course_to_reviews": {
+        "description": "Each course has multiple reviews",
+        "field": "Course.ratingAndReviews -> Array[RatingAndReview._id]",
+        "note": "Updated after reviews are created"
+      },
+      "review_to_student": {
+        "description": "Each review is written by a student",
+        "field": "RatingAndReview.user -> User._id"
+      },
+      "review_to_course": {
+        "description": "Each review is about a course",
+        "field": "RatingAndReview.course -> Course._id"
+      }
+    },
+    "distribution": {
+      "users": {
+        "admin": 1,
+        "instructors": 3,
+        "students": 6,
+        "total": 10
+      },
+      "coursesByInstructor": {
+        "Rahul Kumar": 2,
+        "Priya Sharma": 2,
+        "Amit Patel": 2,
+        "totalCourses": 6
+      },
+      "courseEnrollment": {
+        "total_enrollments": 18,
+        "students_per_course_avg": 3,
+        "distribution": {
+          "course1": 4,
+          "course2": 3,
+          "course3": 4,
+          "course4": 2,
+          "course5": 3,
+          "course6": 2
+        }
+      },
+      "reviewsPerCourse": {
+        "course1": 8,
+        "course2": 5,
+        "course3": 6,
+        "course4": 4,
+        "course5": 7,
+        "course6": 3,
+        "total": 33
+      },
+      "ratingDistribution": {
+        "5_star": 13,
+        "4_star": 15,
+        "3_star": 5
+      }
+    },
+    "credentials": {
+      "admin": {
+        "email": "admin@learnpulse.com",
+        "password": "Admin@123456"
+      },
+      "instructors": [
+        {
+          "email": "rahul@instructor.com",
+          "password": "Instructor@123"
+        },
+        {
+          "email": "priya@instructor.com",
+          "password": "Instructor@123"
+        },
+        {
+          "email": "amit@instructor.com",
+          "password": "Instructor@123"
+        }
+      ],
+      "students": [
+        {
+          "email": "sarah@student.com",
+          "password": "Student@123"
+        },
+        {
+          "email": "aditya@student.com",
+          "password": "Student@123"
+        },
+        {
+          "email": "neha@student.com",
+          "password": "Student@123"
+        },
+        {
+          "email": "vikram@student.com",
+          "password": "Student@123"
+        },
+        {
+          "email": "zara@student.com",
+          "password": "Student@123"
+        },
+        {
+          "email": "rohan@student.com",
+          "password": "Student@123"
+        }
+      ]
+    },
+    "notes": {
+      "videos": "Not included in seed - subSection/courseContent is populated as empty array",
+      "courseProgress": "Not seeded - can be created when students access courses",
+      "payment": "Not seeded - can be created when users make purchases",
+      "wishlist": "Not seeded - can be created when students add courses to wishlist",
+      "cart": "Not seeded - can be created when students add courses to cart"
+    }
+  }
+}
