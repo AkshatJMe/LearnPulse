@@ -1,4 +1,5 @@
 import express from "express"; // Importing express to create an Express application
+import type { Request, Response } from "express";
 
 import { config } from "dotenv"; // Importing dotenv to load environment variables from a .env file
 import cookieParser from "cookie-parser"; // Importing cookie-parser to parse cookies in incoming requests
@@ -12,8 +13,16 @@ import { cloudinaryConnect } from "./config/cloudinary.js"; // Importing the fun
 import userRoutes from "./routes/user.js"; // Routes for user authentication and management
 import courseRoutes from "./routes/course.js"; // Routes for course-related operations
 import profileRoutes from "./routes/profile.js"; // Routes for user profile operations
-import coupon from "./routes/coupon.js"; //Handle the coupon by the admin
-import paymentRoutes from "./routes/payments.js"; //Routes for handling the payment
+import coupon from "./routes/coupon.js"; // Handle the coupon by the admin
+import paymentRoutes from "./routes/payments.js"; // Routes for handling the payment
+import stripePaymentRoutes from "./routes/stripePayment.js"; // Routes for Stripe payment
+import cartRoutes from "./routes/cart.js"; // Routes for cart management
+import wishlistRoutes from "./routes/wishlist.js"; // Routes for wishlist management
+import quizRoutes from "./routes/quiz.js"; // Routes for quiz system
+import discussionRoutes from "./routes/discussion.js"; // Routes for discussion system
+import certificateRoutes from "./routes/certificate.js"; // Routes for certificates
+import adminRoutes from "./routes/admin.js"; // Routes for admin panel
+import analyticsRoutes from "./routes/analytics.js"; // Routes for analytics
 
 // Load environment variables from the .env file
 config({
@@ -21,7 +30,7 @@ config({
 });
 
 // Retrieve environment variables
-const port = process.env.PORT!; // The port on which the server will run
+const port = Number(process.env.PORT || 4000); // The port on which the server will run
 const url = process.env.DATABASE_URL!; // The URL for connecting to the MongoDB database
 const cloud_name = process.env.CLOUD_NAME!; // The Cloudinary cloud name
 const key = process.env.API_KEY!; // The Cloudinary API key
@@ -66,11 +75,19 @@ app.use(
 app.use("/api/v1/auth", userRoutes); // Routes for user authentication (e.g., login, registration)
 app.use("/api/v1/profile", profileRoutes); // Routes for managing user profiles (e.g., view and update profile)
 app.use("/api/v1/course", courseRoutes); // Routes for managing courses (e.g., create, update, delete courses)
-app.use("/api/v1/coupon", coupon); //Routes for the coupon adding, discount, apply etc.
-app.use("/api/v1/payment", paymentRoutes); //Route for handling the payment
+app.use("/api/v1/coupon", coupon); // Routes for the coupon adding, discount, apply etc.
+app.use("/api/v1/payment", paymentRoutes); // Route for handling the payment (legacy Razorpay)
+app.use("/api/v1/stripe", stripePaymentRoutes); // Routes for Stripe payment
+app.use("/api/v1/cart", cartRoutes); // Routes for cart management
+app.use("/api/v1/wishlist", wishlistRoutes); // Routes for wishlist management
+app.use("/api/v1/quiz", quizRoutes); // Routes for quiz system
+app.use("/api/v1/discussion", discussionRoutes); // Routes for discussion system
+app.use("/api/v1/certificate", certificateRoutes); // Routes for certificates
+app.use("/api/v1/admin", adminRoutes); // Routes for admin panel
+app.use("/api/v1/analytics", analyticsRoutes); // Routes for analytics
 
 // Default route to test server functionality
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.send(`<div>
     This is Default Route  
     <p>Everything is OK</p>
@@ -78,6 +95,23 @@ app.get("/", (req, res) => {
 });
 
 // Start the server and listen on the specified port
-app.listen(port, () => {
-  console.log(`Express is working on http://localhost:${port}`); // Log message indicating that the server is running
-});
+const startServer = (preferredPort: number) => {
+  const server = app.listen(preferredPort, () => {
+    console.log(`Express is working on http://localhost:${preferredPort}`);
+  });
+
+  server.on("error", (error: NodeJS.ErrnoException) => {
+    if (error.code === "EADDRINUSE") {
+      const fallbackPort = preferredPort + 1;
+      console.warn(
+        `Port ${preferredPort} is already in use. Retrying on http://localhost:${fallbackPort}`
+      );
+      startServer(fallbackPort);
+      return;
+    }
+
+    throw error;
+  });
+};
+
+startServer(port);
