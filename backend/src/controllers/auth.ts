@@ -186,7 +186,7 @@ export const login = async (req: Request<{}, {}, Logintyps>, res: Response) => {
     if (await bcrypt.compare(password, user.password)) {
       // Generate JWT token
       const token = jwt.sign(
-        { email: user.email, id: user._id, role: user.accountType },
+        { email: user.email, id: user._id, accountType: user.accountType },
         process.env.JWT_SECRET!, // JWT secret key from environment variable
         {
           expiresIn: "24h", // Token expires in 24 hours
