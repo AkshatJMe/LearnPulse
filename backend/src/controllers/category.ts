@@ -41,10 +41,66 @@ export const createCategory = async (req: Request, res: Response) => {
   }
 };
 
+export const editCategory = async (req: Request, res: Response) => {
+  try {
+    // Extract categoryId from the request parameters
+    const { categoryId } = req.params;
+    const { name, description } = req.body;
+
+    // Validate that categoryId is provided
+    if (!categoryId) {
+      return res.status(400).json({
+        success: false,
+        message: "categoryId is required",
+      });
+    }
+
+    // Validate that at least one field is provided for update
+    if (!name && !description) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide name or description to update",
+      });
+    }
+
+    // Find and update the category
+    const updateData: any = {};
+    if (name) updateData.name = name;
+    if (description) updateData.description = description;
+
+    const updatedCategory = await Category.findByIdAndUpdate(
+      categoryId,
+      updateData,
+      { new: true }
+    );
+
+    // Respond with a 404 status code if category not found
+    if (!updatedCategory) {
+      return res.status(404).json({
+        success: false,
+        message: "Category not found",
+      });
+    }
+
+    // Respond with a 200 status code and the updated category
+    res.status(200).json({
+      success: true,
+      message: "Category updated successfully",
+      data: updatedCategory,
+    });
+  } catch (error) {
+    // Handle any errors that occur during the update process
+    res.status(500).json({
+      success: false,
+      message: "Error while updating Category",
+    });
+  }
+};
+
 export const deleteCategory = async (req: Request, res: Response) => {
   try {
-    // Extract categoryId from the request body
-    const { categoryId } = req.body;
+    // Extract categoryId from the request parameters
+    const { categoryId } = req.params;
 
     // Validate that categoryId is provided
     if (!categoryId) {
