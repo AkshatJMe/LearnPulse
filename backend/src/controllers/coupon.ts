@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { Coupon } from "../models/coupon.js"; // Adjust the import path according to your project structure
-import ErrorHandler from "../utils/errorHandler.js"; // Adjust the import path according to your project structure
+import { Coupon } from "../models/coupon.js";
+import ErrorHandler from "../utils/errorHandler.js";
 
 // Middleware to handle errors
 export const errorHandler = (
@@ -24,17 +24,39 @@ export const newCoupon = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { code, amount } = req.body;
+  const {
+    code,
+    discountPercent,
+    discountAmount,
+    discountType,
+    expiryDate,
+    maxUsage,
+    courseId,
+    minPurchaseAmount,
+  } = req.body;
 
-  if (!code || !amount) {
-    return next(new ErrorHandler("Please enter both coupon and amount", 400));
+  if (!code || (!discountPercent && !discountAmount)) {
+    return next(
+      new ErrorHandler("Please enter coupon code and discount value", 400)
+    );
   }
 
-  const coupon = await Coupon.create({ code, amount });
+  const coupon = await Coupon.create({
+    code: code.toUpperCase(),
+    discountPercent,
+    discountAmount,
+    discountType: discountType || "percent",
+    expiryDate,
+    maxUsage,
+    courseId,
+    minPurchaseAmount,
+    isActive: true,
+  });
 
   return res.status(201).json({
     success: true,
-    message: `Coupon ${coupon.code} Created Successfully`,
+    message: `Coupon ${coupon.code} created successfully`,
+    coupon,
   });
 };
 
@@ -44,17 +66,53 @@ export const applyDiscount = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { coupon } = req.query;
+  const { coupon: couponCode, amount, courseId } = req.query;
 
-  const discount = await Coupon.findOne({ code: coupon });
+  const discount = await Coupon.findOne({ code: (couponCode as string).toUpperCase() });
 
   if (!discount) {
-    return next(new ErrorHandler("Invalid Coupon Code", 400));
+    return next(new ErrorHandler("Invalid coupon code", 400));
+  }
+
+  // Check if coupon is valid using the model method
+  if (!(discount as any).isValid()) {
+    return next(new ErrorHandler("Coupon has expired or reached maximum usage", 400));
+  }
+
+  // Check if coupon is course-specific
+  if (discount.courseId && courseId && !discount.courseId.equals(String(courseId))) {
+    return next(
+      new ErrorHandler("This coupon is not applicable to this course", 400)
+    );
+  }
+
+  // Check minimum purchase amount
+  if (discount.minPurchaseAmount && Number(amount) < discount.minPurchaseAmount) {
+    return next(
+      new ErrorHandler(
+        `Minimum purchase amount of $${discount.minPurchaseAmount} required`,
+        400
+      )
+    );
+  }
+
+  // Calculate discount
+  let discountValue = 0;
+  if (discount.discountType === "percent") {
+    discountValue = (Number(amount) * (discount.discountPercent || 0)) / 100;
+  } else {
+    discountValue = discount.discountAmount || 0;
   }
 
   return res.status(200).json({
     success: true,
-    discount: discount.amount,
+    discount: discountValue,
+    coupon: {
+      code: discount.code,
+      discountType: discount.discountType,
+      discountPercent: discount.discountPercent,
+      discountAmount: discount.discountAmount,
+    },
   });
 };
 
@@ -99,7 +157,17 @@ export const updateCoupon = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
-  const { code, amount } = req.body;
+  const {
+    code,
+    discountPercent,
+    discountAmount,
+    discountType,
+    expiryDate,
+    maxUsage,
+    courseId,
+    minPurchaseAmount,
+    isActive,
+  } = req.body;
 
   const coupon = await Coupon.findById(id);
 
@@ -108,13 +176,21 @@ export const updateCoupon = async (
   }
 
   if (code) coupon.code = code;
-  if (amount) coupon.amount = amount;
+  if (discountPercent !== undefined) coupon.discountPercent = discountPercent;
+  if (discountAmount !== undefined) coupon.discountAmount = discountAmount;
+  if (discountType) coupon.discountType = discountType;
+  if (expiryDate) coupon.expiryDate = expiryDate;
+  if (maxUsage !== undefined) coupon.maxUsage = maxUsage;
+  if (courseId) coupon.courseId = courseId;
+  if (minPurchaseAmount !== undefined) coupon.minPurchaseAmount = minPurchaseAmount;
+  if (isActive !== undefined) coupon.isActive = isActive;
 
   await coupon.save();
 
   return res.status(200).json({
     success: true,
     message: `Coupon ${coupon.code} Updated Successfully`,
+    coupon,
   });
 };
 
