@@ -9,6 +9,8 @@ import { CourseProgress } from "../models/courseProgress.js";
 import { mailSender } from "../utils/mailSender.js";
 import { courseEnrollmentEmail } from "../mail/templates/courseEnrollmentEmail.js";
 import { User } from "../models/user.js";
+import { Cart } from "../models/cart.js";
+import { Certificate } from "../models/certificate.js";
 
 // ================ Capture the payment and initiate the 'Razorpay order' ================
 
@@ -174,7 +176,7 @@ const enrollStudents = async (
       // Find the course and add the user to the enrolled students list
       const enrolledCourse = await Course.findOneAndUpdate(
         { _id: courseId },
-        { $push: { studentsEnrolled: userId } },
+        { $addToSet: { studentsEnrolled: userId } },
         { new: true }
       );
 
@@ -195,8 +197,10 @@ const enrollStudents = async (
       const enrolledStudent = await User.findByIdAndUpdate(
         userId,
         {
-          $push: {
+          $addToSet: {
             courses: courseId,
+          },
+          $push: {
             courseProgress: courseProgress._id,
           },
         },
@@ -212,12 +216,56 @@ const enrollStudents = async (
           `${enrolledStudent!.firstName}`
         )
       );
+
+      // Auto-generate certificate record at purchase time (idempotent)
+      const instructor = await User.findById(enrolledCourse.instructor).select(
+        "firstName lastName"
+      );
+
+      await Certificate.findOneAndUpdate(
+        {
+          userId: new mongoose.Types.ObjectId(userId),
+          courseId: new mongoose.Types.ObjectId(courseId),
+        },
+        {
+          $setOnInsert: {
+            certificateId: `CERT-${crypto.randomBytes(8)
+              .toString("hex")
+              .toUpperCase()}`,
+            studentName: `${enrolledStudent!.firstName} ${enrolledStudent!.lastName}`,
+            courseName: enrolledCourse.courseName,
+            instructorName: instructor
+              ? `${instructor.firstName} ${instructor.lastName}`
+              : "Instructor",
+            completionDate: new Date(),
+            issueDate: new Date(),
+            isValid: true,
+          },
+        },
+        { upsert: true, new: true }
+      );
     } catch (error) {
       // Log the error and send a server error response
       console.log(error);
       res.status(500).json({ success: false, message: "Some error occured" });
       return;
     }
+  }
+
+  // Remove purchased courses from user's cart
+  try {
+    const purchasedCourseObjectIds = courses
+      .map((courseId) => new mongoose.Types.ObjectId(courseId))
+      .filter(Boolean);
+
+    if (purchasedCourseObjectIds.length > 0) {
+      await Cart.findOneAndUpdate(
+        { userId },
+        { $pull: { courses: { $in: purchasedCourseObjectIds } } }
+      );
+    }
+  } catch (error) {
+    console.log("Error while clearing purchased courses from cart", error);
   }
 };
 
