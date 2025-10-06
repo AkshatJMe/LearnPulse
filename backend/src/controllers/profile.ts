@@ -175,20 +175,38 @@ export const getEnrolledCourses = async (req: Request, res: Response) => {
     const userId = req.user.id;
 
     // Find the user and populate their enrolled courses with course content and subsections
-    let userDetails = await User.findOne({ _id: userId })
+    const userDetails = await User.findOne({ _id: userId })
       .populate({
         path: "courses",
-        populate: {
-          path: "courseContent",
-          populate: {
-            path: "subSection", // Populate subsections of course content
+        populate: [
+          {
+            path: "instructor",
+            select: "firstName lastName email image",
           },
-        },
+          {
+            path: "category",
+            select: "name",
+          },
+          {
+            path: "courseContent",
+            populate: {
+              path: "subSection", // Populate subsections of course content
+            },
+          },
+        ],
       })
       .exec();
 
+    // Handle case where no user details are found
+    if (!userDetails) {
+      return res.status(400).json({
+        success: false,
+        message: `Could not find user with id: ${userId}`,
+      });
+    }
+
     // Convert userDetails to plain JavaScript object for manipulation
-    userDetails = userDetails.toObject();
+    const plainUserDetails = userDetails.toObject();
 
     // Loop through each course to calculate total duration and progress
     // for (const course of userDetails.courses) {
@@ -222,19 +240,10 @@ export const getEnrolledCourses = async (req: Request, res: Response) => {
     //       : Math.round((courseProgressCount / subsectionLength) * 100 * 100) /
     //         100;
     // }
-    console.log(userDetails.courses);
-    // Handle case where no user details are found
-    if (!userDetails) {
-      return res.status(400).json({
-        success: false,
-        message: `Could not find user with id: ${userId}`,
-      });
-    }
-
     // Return the user's enrolled courses with calculated details
     return res.status(200).json({
       success: true,
-      data: userDetails.courses,
+      data: plainUserDetails.courses || [],
     });
   } catch (error) {
     // Handle any errors
