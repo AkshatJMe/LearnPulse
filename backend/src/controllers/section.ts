@@ -42,7 +42,7 @@ export const createSection = async (req: Request, res: Response) => {
     // Sending a successful response with the updated course details
     res.status(200).json({
       success: true,
-      updatedCourseDetails,
+      data: updatedCourseDetails,
       message: "Section created successfully",
     });
   } catch (error) {
@@ -100,6 +100,18 @@ export const deleteSection = async (req: Request, res: Response) => {
   try {
     // Extracting sectionId and courseId from the request body
     const { sectionId, courseId } = req.body;
+
+    if (!sectionId || !courseId) {
+      return res.status(400).json({
+        success: false,
+        message: "sectionId and courseId are required",
+      });
+    }
+
+    // Remove section reference from course
+    await Course.findByIdAndUpdate(courseId, {
+      $pull: { courseContent: sectionId },
+    });
 
     // Deleting the section from the database
     await Section.findByIdAndDelete(sectionId);
