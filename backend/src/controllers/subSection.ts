@@ -95,8 +95,8 @@ export const updateSubSection = async (req: Request, res: Response) => {
     }
 
     // If a new video file is provided, upload it to Cloudinary and update the sub-section
-    if (req.files && req.files.videoFile !== undefined) {
-      const video = req.files.videoFile;
+    if (req.files && (req.files.videoFile !== undefined || req.files.video !== undefined)) {
+      const video = req.files.videoFile || req.files.video;
       const uploadDetails = await uploadImageToCloudinary(
         video,
         process.env.FOLDER_NAME // Folder name from environment variables
