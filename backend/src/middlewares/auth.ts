@@ -47,9 +47,9 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
 // Middleware function to restrict access to routes for users with 'student' account type
 export const isStudent = (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Check if the user's account type is 'student'
+    // Check if the user's account type is 'student' (case-insensitive)
     //@ts-ignore
-    if (req.user?.role != "student") {
+    if (req.user?.accountType?.toLowerCase() !== "student") {
       return res.status(401).json({
         success: false,
         message: "This Page is protected only for student", // Corrected typo from "messgae" to "message"
@@ -72,9 +72,9 @@ export const isInstructor = (
   next: NextFunction
 ) => {
   try {
-    // Check if the user's account type is 'instructor'
+    // Check if the user's account type is 'instructor' (case-insensitive)
     //@ts-ignore
-    if (req.user?.role != "instructor") {
+    if (req.user?.accountType?.toLowerCase() !== "instructor") {
       return res.status(401).json({
         success: false,
         message: "This Page is protected only for Instructor", // Corrected typo from "messgae" to "message"
@@ -97,9 +97,9 @@ export const isInstructor = (
 // Middleware function to restrict access to routes for users with 'admin' account type
 export const isAdmin = (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Check if the user's account type is 'admin'
+    // Check if the user's account type is 'admin' (case-insensitive)
     //@ts-ignore
-    if (req.user?.role != "admin") {
+    if (req.user?.accountType?.toLowerCase() !== "admin") {
       return res.status(401).json({
         success: false,
         message: "This Page is protected only for Admin", // Corrected typo from "messgae" to "message"
