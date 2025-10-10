@@ -14,7 +14,12 @@ interface ICourse extends Document {
   tag: string[];
   studentsEnrolled: mongoose.Types.ObjectId[]; // Array of User references (assuming IUser interface exists)
   instructions?: string[];
-  status?: "Draft" | "Published"; // Status enum
+  status?: "Draft" | "Published" | "Pending" | "Rejected"; // Status enum
+  averageRating?: number;
+  totalRatings?: number;
+  isApproved?: boolean;
+  rejectionReason?: string;
+  totalRevenue?: number;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -74,7 +79,29 @@ const courseSchema: Schema = new Schema({
   },
   status: {
     type: String,
-    enum: ["Draft", "Published"], // Status can only be Draft or Published
+    enum: ["Draft", "Published", "Pending", "Rejected"], // Added Pending and Rejected for admin moderation
+    default: "Draft",
+  },
+  averageRating: {
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 5,
+  },
+  totalRatings: {
+    type: Number,
+    default: 0,
+  },
+  isApproved: {
+    type: Boolean,
+    default: false,
+  },
+  rejectionReason: {
+    type: String,
+  },
+  totalRevenue: {
+    type: Number,
+    default: 0,
   },
   createdAt: {
     type: Date,
