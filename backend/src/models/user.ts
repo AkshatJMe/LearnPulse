@@ -6,7 +6,7 @@ interface IUser extends Document {
   lastName: string;
   email: string;
   password: string;
-  accountType: "Admin" | "Instructor" | "Student";
+  accountType: "admin" | "instructor" | "student";
   active: boolean;
   approved: boolean;
   additionalDetails: mongoose.Types.ObjectId; // Reference to Profile document
@@ -15,6 +15,9 @@ interface IUser extends Document {
   token?: string; // Optional token
   resetPasswordTokenExpires?: Date; // Optional date for reset password token expiration
   courseProgress?: mongoose.Types.ObjectId[]; // Array of references to CourseProgress documents
+  wishlist?: mongoose.Types.ObjectId; // Reference to Wishlist document
+  cart?: mongoose.Types.ObjectId; // Reference to Cart document
+  totalRevenue?: number; // Total revenue for instructors
   createdAt?: Date; // Automatically managed by Mongoose timestamps
   updatedAt?: Date; // Automatically managed by Mongoose timestamps
 }
@@ -58,12 +61,15 @@ const userSchema = new mongoose.Schema(
       ref: "Profile",
       required: true,
     },
-    courses: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Course",
-      },
-    ],
+    courses: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Course",
+        },
+      ],
+      default: [],
+    },
     image: {
       type: String,
       required: true,
@@ -74,12 +80,27 @@ const userSchema = new mongoose.Schema(
     resetPasswordTokenExpires: {
       type: Date,
     },
-    courseProgress: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "CourseProgress",
-      },
-    ],
+    courseProgress: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "CourseProgress",
+        },
+      ],
+      default: [],
+    },
+    wishlist: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Wishlist",
+    },
+    cart: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cart",
+    },
+    totalRevenue: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
