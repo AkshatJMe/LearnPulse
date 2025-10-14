@@ -24,6 +24,7 @@ import {
   createCategory, // Function to handle the creation of a new category
   showAllCategories, // Function to retrieve a list of all categories
   getCategoryPageDetails, // Function to get details of a specific category page
+  editCategory, // Function to handle the editing of a category
   deleteCategory, // Function to handle the deletion of a category
 } from "../controllers/category.js";
 
@@ -46,6 +47,9 @@ import {
   createRating, // Function to handle the creation of a new rating
   getAverageRating, // Function to retrieve the average rating of a course
   getAllRatingReview, // Function to get all reviews for a course
+  getCourseReviews, // Function to get all reviews for a specific course
+  updateReview, // Function to update a review
+  deleteReview, // Function to delete a review
 } from "../controllers/ratingAndReview.js";
 
 // Importing middleware functions for authentication and authorization
@@ -115,9 +119,13 @@ app.post("/updateCourseProgress", auth, isStudent, updateCourseProgress);
 // This route is accessible only to authenticated admins
 app.post("/createCategory", auth, isAdmin, createCategory);
 
+// Route for editing a category
+// This route is accessible only to authenticated admins
+app.put("/editCategory/:categoryId", auth, isAdmin, editCategory);
+
 // Route for deleting a category
 // This route is accessible only to authenticated admins
-app.delete("/deleteCategory", auth, isAdmin, deleteCategory);
+app.delete("/deleteCategory/:categoryId", auth, isAdmin, deleteCategory);
 
 // Route for retrieving a list of all categories
 // This route is accessible to anyone (public route)
@@ -138,7 +146,17 @@ app.get("/getAverageRating", getAverageRating);
 // Route for getting all reviews for a course
 // This route is accessible to anyone (public route)
 app.get("/getReviews", getAllRatingReview);
+// Route for getting reviews for a specific course
+// This route is accessible to anyone (public route)
+app.get("/getReviews/:courseId", getCourseReviews);
 
+// Route for updating a review
+// This route is accessible only to authenticated students
+app.put("/updateReview/:reviewId", auth, isStudent, updateReview);
+
+// Route for deleting a review
+// This route is accessible only to authenticated students
+app.delete("/deleteReview/:reviewId", auth, isStudent, deleteReview);
 // Route for buy course
 app.post("/buyCourse", auth, isStudent, buyCourse);
 
