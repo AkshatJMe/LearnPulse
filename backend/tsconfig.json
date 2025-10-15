@@ -5,6 +5,15 @@
     "rootDir": "src",
     "moduleResolution": "NodeNext",
     "outDir": "dist",
-    "strict": true
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": ["seed.ts", "node_modules"],
+  "ts-node": {
+    "esm": true,
+    "experimentalEsm": true,
+    "moduleResolution": "NodeNext"
   }
 }
