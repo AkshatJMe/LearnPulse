@@ -12,7 +12,12 @@
   "dependencies": {
     "@headlessui/react": "^2.2.4",
     "@nextui-org/react": "^2.4.2",
+    "@react-aria/focus": "^3.21.4",
+    "@react-aria/interactions": "^3.27.0",
+    "@react-aria/utils": "^3.33.0",
+    "@react-stately/checkbox": "^3.7.4",
     "@reduxjs/toolkit": "^2.2.6",
+    "@stripe/stripe-js": "^8.9.0",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",
     "concurrently": "^8.2.2",
