@@ -3,7 +3,7 @@ import FooterLinkGroup from "../core/FooterLinkGroup";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative bg-gray-300 mx-7 mt-4 rounded-3xl mb-4">
+    <footer className="relative bg-gray-300 dark:bg-gray-800 mx-7 mt-4 rounded-3xl mb-4">
       <div className="w-full px-8 mx-auto max-w-7xl">
         {/* Footer links section */}
         <div className="grid w-full grid-cols-1 gap-8 py-12 mx-auto md:grid-cols-2 lg:grid-cols-4">
@@ -42,17 +42,17 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom section with legal info and credits */}
-        <div className="flex flex-col items-center justify-center w-full py-4 border-t border-gray-200 md:flex-row md:justify-between">
-          <div className="flex flex-row items-center justify-between w-11/12 max-w-maxContent text-richblack-400 mx-auto pb-14 text-sm">
+        <div className="flex flex-col items-center justify-center w-full py-4 border-t border-gray-300 dark:border-gray-700 md:flex-row md:justify-between">
+          <div className="flex flex-row items-center justify-between w-11/12 max-w-maxContent text-gray-600 dark:text-gray-400 mx-auto pb-14 text-sm">
             <div className="flex">
               {/* Legal links */}
-              <div className="border-r border-richblack-700 px-3 cursor-pointer hover:text-richblack-50 transition-all duration-200">
+              <div className="border-r border-gray-400 dark:border-gray-600 px-3 cursor-pointer hover:text-gray-900 dark:hover:text-gray-200 transition-all duration-200">
                 Privacy Policy
               </div>
-              <div className="border-r border-richblack-700 px-3 cursor-pointer hover:text-richblack-50 transition-all duration-200">
+              <div className="border-r border-gray-400 dark:border-gray-600 px-3 cursor-pointer hover:text-gray-900 dark:hover:text-gray-200 transition-all duration-200">
                 Cookie Policy
               </div>
-              <div className="border-r border-richblack-700 px-3 cursor-pointer hover:text-richblack-50 transition-all duration-200">
+              <div className="border-r border-gray-400 dark:border-gray-600 px-3 cursor-pointer hover:text-gray-900 dark:hover:text-gray-200 transition-all duration-200">
                 Terms
               </div>
             </div>
@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
               <span> © 2023 LearnPulse</span>
             </div>
           </div>
-          <div className="flex gap-4 text-gray-900 sm:justify-center"></div>
+          <div className="flex gap-4 text-gray-900 dark:text-gray-200 sm:justify-center"></div>
         </div>
       </div>
     </footer>
