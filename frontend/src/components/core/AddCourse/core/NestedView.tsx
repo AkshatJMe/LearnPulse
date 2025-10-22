@@ -31,10 +31,9 @@ export default function NestedView({ handleChangeEditSectionName }) {
   // Delele Section
   const handleDeleleSection = async (sectionId) => {
     const result = await deleteSection({
-      token,
       sectionId,
       courseId: course._id,
-    });
+    }, token);
     if (result) {
       dispatch(setCourse(result));
     }
@@ -43,7 +42,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
 
   // Delete SubSection
   const handleDeleteSubSection = async (subSectionId, sectionId) => {
-    const result = await deleteSubSection({ subSectionId, sectionId, token });
+    const result = await deleteSubSection({ subSectionId, sectionId }, token);
     if (result) {
       // update the structure of course - As we have got only updated section details
       const updatedCourseContent = course.courseContent.map((section) =>
