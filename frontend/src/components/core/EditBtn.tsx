@@ -2,11 +2,12 @@ import React from "react";
 
 interface ButtonProps {
   text: string;
+  onClick?: () => void;
 }
 
-export const EditBtn: React.FC<ButtonProps> = ({ text }) => (
+export const EditBtn: React.FC<ButtonProps> = ({ text, onClick }) => (
   <div className="m-5">
-    <button className="flex p-2.5 bg-yellow-500 rounded-xl hover:rounded-3xl hover:bg-yellow-600 transition-all duration-300 text-white">
+    <button onClick={onClick} className="flex p-2.5 bg-yellow-500 rounded-xl hover:rounded-3xl hover:bg-yellow-600 transition-all duration-300 text-white">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6"
