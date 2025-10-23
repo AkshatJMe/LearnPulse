@@ -11,7 +11,7 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ title, links }) => {
   return (
     <div className="w-full">
       {/* Title of the link group */}
-      <p className="block mb-4 text-sm antialiased font-extrabold leading-normal uppercase opacity-50 text-blue-gray-900">
+      <p className="block mb-4 text-sm antialiased font-extrabold leading-normal uppercase opacity-50 text-blue-gray-900 dark:text-gray-300">
         {title}
       </p>
       {/* List of links */}
@@ -19,7 +19,7 @@ const FooterLinkGroup: React.FC<FooterLinkGroupProps> = ({ title, links }) => {
         {links.map((link, index) => (
           <li
             key={index}
-            className="block text-base antialiased font-normal leading-relaxed text-blue-gray-900"
+            className="block text-base antialiased font-normal leading-relaxed text-blue-gray-900 dark:text-gray-300"
           >
             {/* Each link */}
             <a
