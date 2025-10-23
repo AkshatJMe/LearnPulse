@@ -47,7 +47,7 @@ export default function ProfileDropdown() {
           className="absolute bg-slate-50 top-[118%] right-0 z-[1000] divide-y-[1px] divide-richblack-700 overflow-hidden rounded-md border-[1px] border-richblack-700 bg-richblack-800"
           ref={ref}
         >
-          <Link to="/dashboard/my-profile" onClick={() => setOpen(false)}>
+          <Link to="/dashboard/profile" onClick={() => setOpen(false)}>
             <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
               <CgProfile className="text-lg" />
               Profile
@@ -57,7 +57,7 @@ export default function ProfileDropdown() {
           {user && user?.accountType === "student" && (
             <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
               <Link
-                to="dashboard/enrolled-courses"
+                to="/dashboard/enrolled-courses"
                 onClick={() => setOpen(false)}
               >
                 <div className="flex gap-1">
@@ -70,7 +70,7 @@ export default function ProfileDropdown() {
 
           {user && user?.accountType === "instructor" && (
             <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
-              <Link to="dashboard/instructor" onClick={() => setOpen(false)}>
+              <Link to="/dashboard/instructor" onClick={() => setOpen(false)}>
                 <div className="flex gap-1">
                   <VscDashboard className="text-lg" />
                   Dashboard
@@ -81,7 +81,7 @@ export default function ProfileDropdown() {
 
           {user && user?.accountType === "instructor" && (
             <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
-              <Link to="dashboard/my-course" onClick={() => setOpen(false)}>
+              <Link to="/dashboard/my-courses" onClick={() => setOpen(false)}>
                 <div className="flex gap-1">
                   <VscSymbolConstant className="text-lg" />
                   MyCourse
@@ -92,7 +92,7 @@ export default function ProfileDropdown() {
 
           {user && user?.accountType === "instructor" && (
             <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
-              <Link to="dashboard/add-course" onClick={() => setOpen(false)}>
+              <Link to="/dashboard/add-course" onClick={() => setOpen(false)}>
                 <div className="flex gap-1">
                   <CiCirclePlus className="text-lg" />
                   AddCourse
@@ -103,7 +103,7 @@ export default function ProfileDropdown() {
 
           {user && user?.accountType === "admin" && (
             <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
-              <Link to="dashboard/admin" onClick={() => setOpen(false)}>
+              <Link to="/dashboard/admin" onClick={() => setOpen(false)}>
                 <div className="flex gap-1">
                   <TbLayoutDashboard className="text-lg" />
                   Dashboard
@@ -128,7 +128,7 @@ export default function ProfileDropdown() {
 
           {user && user?.accountType === "admin" && (
             <div className="flex w-full items-center gap-x-1 py-[10px] px-[12px] text-sm text-richblack-100 hover:bg-richblack-700 hover:text-richblack-25">
-              <Link to="dashboard/all-students" onClick={() => setOpen(false)}>
+              <Link to="/dashboard/all-students" onClick={() => setOpen(false)}>
                 <div className="flex gap-1">
                   <VscArrowRight className="text-lg" />
                   Students
