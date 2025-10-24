@@ -96,7 +96,7 @@ const UpdatePassword = () => {
               <Button
                 color="default"
                 onClick={() => {
-                  navigate("/dashboard/my-profile");
+                  navigate("/dashboard/profile");
                 }}
               >
                 Cancel
