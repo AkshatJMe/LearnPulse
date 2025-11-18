@@ -10,7 +10,7 @@ const MyProfile = () => {
   const navigate = useNavigate();
   return (
     <div className="p-10">
-      <h1 className="mb-14 text-4xl font-medium text-gray-900 font-boogaloo text-center sm:text-left">
+      <h1 className="mb-14 text-4xl font-medium text-gray-900 dark:text-gray-100 font-boogaloo text-center sm:text-left">
         {" "}
         My Profile
       </h1>
@@ -31,16 +31,10 @@ const MyProfile = () => {
                 {" "}
                 {user?.firstName + " " + user?.lastName}
               </p>
-              <p className="text-small text-default-500">{user?.email}</p>
+              <p className="text-small text-richblack-300">{user?.email}</p>
             </div>
           </div>
-          <button
-            onClick={() => {
-              navigate("/dashboard/settings");
-            }}
-          >
-            <EditBtn text="Edit" />
-          </button>
+          <EditBtn text="Edit" onClick={() => navigate("/dashboard/settings")} />
         </CardHeader>
       </Card>
 
@@ -64,13 +58,7 @@ const MyProfile = () => {
                 "Write Something About Yourself "}
             </p>
           </div>
-          <button
-            onClick={() => {
-              navigate("/dashboard/settings");
-            }}
-          >
-            <EditBtn text="Edit" />
-          </button>
+          <EditBtn text="Edit" onClick={() => navigate("/dashboard/settings")} />
         </CardHeader>
       </Card>
 
@@ -80,13 +68,7 @@ const MyProfile = () => {
             <p className="text-lg font-semibold text-richblack-5">
               Personal Details
             </p>
-            <button
-              onClick={() => {
-                navigate("/dashboard/settings");
-              }}
-            >
-              <EditBtn text="Edit" />
-            </button>
+            <EditBtn text="Edit" onClick={() => navigate("/dashboard/settings")} />
           </div>
 
           {/* niche wala container */}
@@ -94,13 +76,13 @@ const MyProfile = () => {
             <div className="flex gap-10 max-w-[500px] justify-between">
               <div className="flex flex-col gap-y-5">
                 <div>
-                  <p className="mb-2 text-sm text-richblack-600">First Name</p>
+                  <p className="mb-2 text-sm text-richblack-300">First Name</p>
                   <p className="text-sm font-semibold text-richblack-5 capitalize">
                     {user?.firstName}
                   </p>
                 </div>
                 <div>
-                  <p className="mb-2 text-sm text-richblack-600">
+                  <p className="mb-2 text-sm text-richblack-300">
                     Account Type
                   </p>
                   <p className="text-sm font-semibold text-richblack-5 capitalize">
@@ -108,13 +90,13 @@ const MyProfile = () => {
                   </p>
                 </div>
                 <div>
-                  <p className="mb-2 text-sm text-richblack-600">Email</p>
+                  <p className="mb-2 text-sm text-richblack-300">Email</p>
                   <p className="text-sm font-semibold text-richblack-5">
                     {user?.email}
                   </p>
                 </div>
                 <div>
-                  <p className="mb-2 text-sm text-richblack-600">Gender</p>
+                  <p className="mb-2 text-sm text-richblack-300">Gender</p>
                   <p className="text-sm font-semibold text-richblack-5">
                     {user?.additionalDetails?.gender ?? "Add Gender"}
                   </p>
@@ -123,13 +105,13 @@ const MyProfile = () => {
 
               <div className="flex flex-col gap-y-5">
                 <div>
-                  <p className="mb-2 text-sm text-richblack-600">Last Name</p>
+                  <p className="mb-2 text-sm text-richblack-300">Last Name</p>
                   <p className="text-sm font-semibold text-richblack-5 capitalize">
                     {user?.lastName}
                   </p>
                 </div>
                 <div>
-                  <p className="mb-2 text-sm text-richblack-600">
+                  <p className="mb-2 text-sm text-richblack-300">
                     Phone Number
                   </p>
                   <p className="text-sm font-semibold text-richblack-5">
@@ -138,7 +120,7 @@ const MyProfile = () => {
                   </p>
                 </div>
                 <div>
-                  <p className="mb-2 text-sm text-richblack-600">
+                  <p className="mb-2 text-sm text-richblack-300">
                     Date Of Birth
                   </p>
                   <p className="text-sm font-semibold text-richblack-5">
