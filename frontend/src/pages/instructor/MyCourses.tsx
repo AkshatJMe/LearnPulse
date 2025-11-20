@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 import {
   deleteCourse,
+  editCourseDetails,
   fetchInstructorCourses,
 } from "../../services/operations/courseDetailsAPI";
 import { Button, Card, CardBody, CardHeader, Image } from "@nextui-org/react";
+import toast from "react-hot-toast";
 
 export default function MyCourses() {
   //@ts-ignore
@@ -16,19 +18,19 @@ export default function MyCourses() {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [processingId, setProcessingId] = useState<string | null>(null);
+
+  const loadCourses = async () => {
+    setLoading(true);
+    const result = await fetchInstructorCourses(token);
+    setLoading(false);
+    if (result) {
+      setCourses(result);
+    }
+  };
 
   useEffect(() => {
-    const fetchCourses = async () => {
-      setLoading(true);
-      const result = await fetchInstructorCourses(token);
-
-      setLoading(false);
-      if (result) {
-        setCourses(result);
-        console.log(result);
-      }
-    };
-    fetchCourses();
+    loadCourses();
   }, []);
 
   // Scroll to the top of the page when the component mounts
@@ -36,11 +38,35 @@ export default function MyCourses() {
     window.scrollTo(0, 0);
   }, []);
 
+  const handlePublishCourse = async (courseId: string, currentStatus: string) => {
+    if (String(currentStatus || "").toLowerCase() === "published") {
+      toast.success("Course is already published");
+      return;
+    }
+
+    try {
+      setProcessingId(courseId);
+      const formData = new FormData();
+      formData.append("courseId", courseId);
+      formData.append("status", "Published");
+
+      const result = await editCourseDetails(formData, token);
+      if (result) {
+        toast.success("Course published successfully");
+        await loadCourses();
+      }
+    } catch (error) {
+      toast.error("Failed to publish course");
+    } finally {
+      setProcessingId(null);
+    }
+  };
+
   return (
-    <div className="p-8">
+    <div className="p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
       <div className="mb-14 flex justify-between">
         {/* <div className="mb-14 flex items-center justify-between"> */}
-        <h1 className="text-4xl font-medium text-richblack-5  text-center lg:text-left">
+        <h1 className="text-4xl font-medium text-center lg:text-left">
           My Courses
         </h1>
         <Button
@@ -80,6 +106,26 @@ export default function MyCourses() {
               color="primary"
             >
               Delete Course
+            </Button>
+            <Button
+              onClick={() => handlePublishCourse(course._id, course.status)}
+              color="success"
+              isDisabled={
+                processingId === course._id ||
+                String(course.status || "").toLowerCase() === "published"
+              }
+            >
+              {processingId === course._id
+                ? "Publishing..."
+                : String(course.status || "").toLowerCase() === "published"
+                ? "Published"
+                : "Publish"}
+            </Button>
+            <Button
+              onClick={() => navigate(`/course/${course._id}/quiz/create`)}
+              color="secondary"
+            >
+              Create Quiz
             </Button>
           </CardBody>
         ))}
