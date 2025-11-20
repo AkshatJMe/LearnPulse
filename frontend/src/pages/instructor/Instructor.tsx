@@ -55,8 +55,8 @@ export default function Instructor() {
 
   // skeleton loading
   const skItem = () => (
-    <div className="mt-5 w-full flex flex-col justify-between p-11 rounded-xl">
-      <div className="flex border p-4 border-richblack-600">
+    <div className="mt-5 w-full flex flex-col justify-between p-11 rounded-xl bg-gray-100 dark:bg-gray-800">
+        <div className="flex border p-4 border-gray-300 dark:border-gray-700">
         <div className="w-full">
           <p className="w-[100px] h-4 rounded-xl skeleton"></p>
           <div className="mt-3 flex gap-x-5">
@@ -72,11 +72,11 @@ export default function Instructor() {
       </div>
       <div className="flex flex-col gap-y-6 mt-5">
         <div className="flex justify-between">
-          <p className="text-lg font-bold text-richblack-5 pl-5">
+            <p className="text-lg font-bold pl-5">
             Your Courses
           </p>
           <Link to="/dashboard/my-courses">
-            <p className="text-xs font-semibold text-yellow-50 hover:underline pr-5">
+              <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline pr-5">
               View All
             </p>
           </Link>
@@ -91,12 +91,12 @@ export default function Instructor() {
   );
 
   return (
-    <div className="p-8">
+    <div className="p-8 bg-white dark:bg-gray-900 text-gray-900 dark:text-white min-h-screen">
       <div className="space-y-2">
-        <h1 className="text-2xl font-bold text-richblack-5 text-center sm:text-left">
+        <h1 className="text-2xl font-bold text-center sm:text-left">
           Hi {user?.firstName} 👋
         </h1>
-        <p className="font-medium text-richblack-200 text-center sm:text-left">
+        <p className="font-medium text-gray-600 dark:text-gray-400 text-center sm:text-left">
           Let's start something new
         </p>
       </div>
@@ -109,42 +109,42 @@ export default function Instructor() {
             {totalAmount > 0 || totalStudents > 0 ? (
               false
             ) : (
-              <div className="flex-1 rounded-md bg-richblack-800 p-6">
-                <p className="text-lg font-bold text-richblack-5">Visualize</p>
-                <p className="mt-4 text-xl font-medium text-richblack-50">
+              <div className="flex-1 rounded-md bg-gray-100 dark:bg-gray-800 p-6">
+                <p className="text-lg font-bold">Visualize</p>
+                <p className="mt-4 text-xl font-medium text-gray-600 dark:text-gray-400">
                   Not Enough Data To Visualize
                 </p>
               </div>
             )}
-            <div className="flex min-w-[250px] flex-col rounded-md bg-richblack-800 p-6">
-              <p className="text-lg font-bold text-richblack-5">Statistics</p>
+            <div className="flex min-w-[250px] flex-col rounded-md bg-gray-100 dark:bg-gray-800 p-6">
+              <p className="text-lg font-bold">Statistics</p>
               <div className="mt-4 space-y-4">
                 <div>
-                  <p className="text-lg text-richblack-200">Total Courses</p>
-                  <p className="text-3xl font-semibold text-richblack-50">
+                  <p className="text-lg text-gray-600 dark:text-gray-400">Total Courses</p>
+                  <p className="text-3xl font-semibold">
                     {courses.length}
                   </p>
                 </div>
                 <div>
-                  <p className="text-lg text-richblack-200">Total Students</p>
-                  <p className="text-3xl font-semibold text-richblack-50">
+                  <p className="text-lg text-gray-600 dark:text-gray-400">Total Students</p>
+                  <p className="text-3xl font-semibold">
                     {totalStudents}
                   </p>
                 </div>
                 <div>
-                  <p className="text-lg text-richblack-200">Total Income</p>
-                  <p className="text-3xl font-semibold text-richblack-50">
+                  <p className="text-lg text-gray-600 dark:text-gray-400">Total Income</p>
+                  <p className="text-3xl font-semibold">
                     Rs. {totalAmount}
                   </p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="rounded-md bg-richblack-800 p-6">
+          <div className="rounded-md bg-gray-100 dark:bg-gray-800 p-6">
             <div className="flex items-center justify-between">
-              <p className="text-lg font-bold text-richblack-5">Your Courses</p>
+              <p className="text-lg font-bold">Your Courses</p>
               <Link to="/dashboard/my-courses">
-                <p className="text-xs font-semibold text-yellow-50 hover:underline">
+                <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
                   View All
                 </p>
               </Link>
@@ -161,17 +161,17 @@ export default function Instructor() {
                     className="h-[201px] w-full rounded-2xl object-cover"
                   />
                   <div className="mt-3 w-full">
-                    <p className="text-sm font-medium text-richblack-50">
+                    <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       {course.courseName}
                     </p>
                     <div className="mt-1 flex items-center space-x-2">
-                      <p className="text-xs font-medium text-richblack-300">
+                      <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
                         {course.studentsEnrolled.length} students
                       </p>
-                      <p className="text-xs font-medium text-richblack-300">
+                      <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
                         |
                       </p>
-                      <p className="text-xs font-medium text-richblack-300">
+                      <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
                         Rs. {course.price}
                       </p>
                     </div>
@@ -182,12 +182,12 @@ export default function Instructor() {
           </div>
         </div>
       ) : (
-        <div className="mt-20 rounded-md bg-richblack-800 p-6 py-20">
-          <p className="text-center text-2xl font-bold text-richblack-5">
+        <div className="mt-20 rounded-md bg-gray-100 dark:bg-gray-800 p-6 py-20">
+          <p className="text-center text-2xl font-bold">
             You have not created any courses yet
           </p>
           <Link to="/dashboard/add-course">
-            <p className="mt-1 text-center text-lg font-semibold text-yellow-50">
+            <p className="mt-1 text-center text-lg font-semibold text-blue-600 dark:text-blue-400">
               Create a course
             </p>
           </Link>
