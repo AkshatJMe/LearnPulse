@@ -169,12 +169,10 @@ const EnrolledCourses = () => {
                   </div>
 
                   <button
-                    onClick={() =>
-                      navigate(`/view-course/${selectedCourse._id}`)
-                    }
+                    onClick={() => navigate(`/course/${selectedCourse._id}`)}
                     className="w-full py-4 bg-primary text-white rounded-xl font-bold text-lg hover:shadow-xl hover:shadow-primary/20 active:scale-[0.98] transition-all"
                   >
-                    Go to Dashboard
+                    View Course
                   </button>
                 </div>
               </div>
