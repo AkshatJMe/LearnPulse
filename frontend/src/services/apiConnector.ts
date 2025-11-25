@@ -29,11 +29,41 @@ export const apiConnector = ({
     params: params ?? null,
   };
 
-  return axiosInstance(axiosConfig)
-    .then((response: AxiosResponse<any>) => {
+  const tryRequest = async (config: AxiosRequestConfig) => {
+    try {
+      const response: AxiosResponse<any> = await axiosInstance(config);
       return response;
-    })
-    .catch((error: AxiosError<any>) => {
+    } catch (error: any) {
+      const originalUrl = String(config.url || "");
+      const canRetryTo4001 =
+        originalUrl.includes("localhost:4000") &&
+        !originalUrl.includes("localhost:4001");
+
+      // Retry once when backend auto-shifts port from 4000 to 4001
+      if (!error?.response && canRetryTo4001) {
+        const fallbackUrl = originalUrl.replace("localhost:4000", "localhost:4001");
+        const retryConfig: AxiosRequestConfig = {
+          ...config,
+          url: fallbackUrl,
+        };
+
+        try {
+          return await axiosInstance(retryConfig);
+        } catch (retryError: any) {
+          if (retryError.response) {
+            console.error("Response data:", retryError.response.data);
+            console.error("Response status:", retryError.response.status);
+            console.error("Response headers:", retryError.response.headers);
+          } else if (retryError.request) {
+            console.error("Request:", retryError.request);
+          } else {
+            console.error("Error message:", retryError.message);
+          }
+          console.error("Error config:", retryError.config);
+          throw retryError;
+        }
+      }
+
       // Handle Axios errors here
       if (error.response) {
         // The request was made and the server responded with a status code
@@ -49,5 +79,8 @@ export const apiConnector = ({
       }
       console.error("Error config:", error.config);
       throw error; // Rethrow the error to propagate it further
-    });
+    }
+  };
+
+  return tryRequest(axiosConfig);
 };
