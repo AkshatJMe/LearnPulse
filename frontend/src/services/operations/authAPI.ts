@@ -16,6 +16,8 @@ const {
 import { Dispatch } from "redux";
 import { SignUpParams } from "../../types/auth/SignUpParams";
 import { setUser } from "../../slices/profileSlice";
+import { resetCart } from "../../slices/cartSlice";
+import { getCart } from "./cartAPI";
 
 export function sendOtp(email: string, navigate: any) {
   // Adjust 'any' to the appropriate type if possible
@@ -127,7 +129,18 @@ export function login(email: string, password: string, navigate: any) {
         JSON.stringify({ ...response.data.user, image: userImage })
       );
 
-      navigate("/dashboard/my-profile");
+      // Fetch cart after login
+      try {
+        const cartData = await getCart(response.data.token);
+        if (cartData?.cart?.courses) {
+          const { setCart } = await import("../../slices/cartSlice");
+          dispatch(setCart(cartData.cart.courses));
+        }
+      } catch (error) {
+        console.error("Failed to fetch cart:", error);
+      }
+
+      navigate("/dashboard/profile");
     } catch (error) {
       toast.error("Login Failed");
     }
@@ -168,7 +181,6 @@ export function resetPassword(
   return async (dispatch: Dispatch) => {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
-    token = token[2];
     try {
       const response = await apiConnector({
         method: "POST",
@@ -198,7 +210,7 @@ export function logout(navigate: any) {
   return (dispatch: Dispatch) => {
     dispatch(setToken(null));
     dispatch(setUser(null));
-    // dispatch(resetCart());
+    dispatch(resetCart());
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     toast.success("Logged Out");
