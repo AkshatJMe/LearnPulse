@@ -211,9 +211,15 @@ export const editCourseDetails = async function (data: any, token: string) {
       },
     });
 
+    if (!response?.data?.success) {
+      throw new Error(response?.data?.message || "Failed to update course");
+    }
+
     result = response?.data?.data;
     toast.success("Course Details Updated Successfully");
-  } catch (error) {}
+  } catch (error: any) {
+    toast.error(error?.response?.data?.message || "Failed to update course");
+  }
   toast.dismiss(toastId);
   return result;
 };
@@ -232,9 +238,15 @@ export const createSection = async function (data: any, token: string) {
       },
     });
 
-    result = response?.data?.data;
+    if (!response?.data?.success) {
+      throw new Error(response?.data?.message || "Failed to create section");
+    }
+
+    result = response?.data?.data || response?.data?.updatedCourseDetails;
     toast.success("Course Section Created");
-  } catch (error) {}
+  } catch (error: any) {
+    toast.error(error?.response?.data?.message || "Failed to create section");
+  }
   toast.dismiss(toastId);
   return result;
 };
@@ -262,7 +274,6 @@ export const createSubSection = async function (data: any, token: string) {
 
 export const updateSection = async function (data: any, token: string) {
   const toastId = toast.loading("Loading...");
-  console.log(data, token);
   let result: any = null;
   try {
     const response = await apiConnector({
@@ -275,9 +286,15 @@ export const updateSection = async function (data: any, token: string) {
       },
     });
 
+    if (!response?.data?.success) {
+      throw new Error(response?.data?.message || "Failed to update section");
+    }
+
     result = response?.data?.data;
     toast.success("Course Section Updated");
-  } catch (error) {}
+  } catch (error: any) {
+    toast.error(error?.response?.data?.message || "Failed to update section");
+  }
   toast.dismiss(toastId);
   return result;
 };
@@ -296,9 +313,15 @@ export const updateSubSection = async function (data: any, token: string) {
       },
     });
 
+    if (!response?.data?.success) {
+      throw new Error(response?.data?.message || "Failed to update lecture");
+    }
+
     result = response?.data?.data;
     toast.success("Lecture Updated");
-  } catch (error) {}
+  } catch (error: any) {
+    toast.error(error?.response?.data?.message || "Failed to update lecture");
+  }
   toast.dismiss(toastId);
   return result;
 };
@@ -317,9 +340,15 @@ export const deleteSection = async function (data: any, token: string) {
       },
     });
 
+    if (!response?.data?.success) {
+      throw new Error(response?.data?.message || "Failed to delete section");
+    }
+
     result = response?.data?.data;
     toast.success("Course Section Deleted");
-  } catch (error) {}
+  } catch (error: any) {
+    toast.error(error?.response?.data?.message || "Failed to delete section");
+  }
   toast.dismiss(toastId);
   return result;
 };
@@ -338,9 +367,15 @@ export const deleteSubSection = async function (data: any, token: string) {
       },
     });
 
+    if (!response?.data?.success) {
+      throw new Error(response?.data?.message || "Failed to delete lecture");
+    }
+
     result = response?.data?.data;
     toast.success("Lecture Deleted");
-  } catch (error) {}
+  } catch (error: any) {
+    toast.error(error?.response?.data?.message || "Failed to delete lecture");
+  }
   toast.dismiss(toastId);
   return result;
 };
