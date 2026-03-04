@@ -96,7 +96,6 @@ const Navbar: React.FC = () => {
                   variant="ghost"
                   size="sm"
                   onClick={() => navigate('/login')}
-                  className="hidden sm:inline-block"
                 >
                   Login
                 </Button>
