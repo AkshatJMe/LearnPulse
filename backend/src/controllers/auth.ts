@@ -40,20 +40,30 @@ export const sendOTP = async (req: Request, res: Response) => {
     const otpPayload = { email, otp };
     await OTP.create(otpPayload);
 
+    console.log(`🔐 OTP generated for ${email}: ${otp}`);
+
     // Send OTP verification email
-    await mailSender(email, "OTP Verification Email", otpTemplate(otp, name));
+    try {
+      await mailSender(email, "OTP Verification Email", otpTemplate(otp, name));
+      console.log(`✅ OTP email sent successfully to ${email}`);
+    } catch (emailError: any) {
+      console.error(`❌ Failed to send OTP email to ${email}:`, emailError.message);
+      // Continue even if email fails - OTP is saved in DB and returned in response
+      console.log(`⚠️ Email failed but OTP is saved. OTP: ${otp}`);
+    }
 
     // Respond with success message and OTP (for testing purposes)
     res.status(200).json({
       success: true,
       otp,
-      message: "OTP sent successfully",
+      message: "OTP generated successfully. Check your email or use the OTP from response (dev mode).",
     });
-  } catch (error) {
+  } catch (error: any) {
     // Handle any errors
+    console.error("❌ Error in sendOTP controller:", error);
     res.status(500).json({
       success: false,
-      message: "Error while generating OTP",
+      message: error.message || "Error while generating OTP",
     });
   }
 };

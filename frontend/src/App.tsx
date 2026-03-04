@@ -97,7 +97,7 @@ function App() {
             }
           />
           <Route
-            path="/verify-email/:token"
+            path="/verify-email"
             element={
               <OpenRoute>
                 <VerifyEmail />

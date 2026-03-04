@@ -22,7 +22,7 @@ import { getCart } from "./cartAPI";
 export function sendOtp(email: string, navigate: any) {
   // Adjust 'any' to the appropriate type if possible
   return async (dispatch: Dispatch) => {
-    const toastId = toast.loading("Loading...");
+    const toastId = toast.loading("Sending OTP...");
     dispatch(setLoading(true));
 
     try {
@@ -35,16 +35,23 @@ export function sendOtp(email: string, navigate: any) {
         },
       });
 
+      console.log("OTP Response:", response.data);
+
       if (!response.data.success) {
         throw new Error(response.data.message);
       }
 
-      toast.success("OTP Sent Successfully");
+      toast.success("OTP Sent Successfully! Check your email.");
+      
+      // Only navigate on successful OTP send
       navigate("/verify-email");
     } catch (error: any) {
       // Adjust 'any' to the appropriate error type if possible
-      console.error("SENDOTP API ERROR............", error);
-      toast.error("Could Not Send OTP");
+      console.error("SENDOTP API ERROR:", error);
+      const errorMessage = error?.response?.data?.message || error?.message || "Could Not Send OTP";
+      toast.error(errorMessage);
+      
+      // DO NOT navigate if there's an error - user stays on signup page
     }
 
     dispatch(setLoading(false));

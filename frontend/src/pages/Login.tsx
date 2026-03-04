@@ -51,18 +51,18 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-screen flex-col justify-center px-4 py-8 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mb-4 lg:mb-8 text-3xl font-extrabold tracking-tight leading-tight text-center text-gray-900 dark:text-white md:text-4xl">
+        <h2 className="mb-4 text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight text-center text-gray-900 dark:text-white md:text-4xl">
           LearnPulse
         </h2>
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
+        <h2 className="mt-6 sm:mt-10 text-center text-xl sm:text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
           Login to your account
         </h2>
       </div>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" onSubmit={handleOnSubmit} method="POST">
+      <div className="mt-6 sm:mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form className="space-y-4 sm:space-y-6" onSubmit={handleOnSubmit} method="POST">
           <div>
             <label
               htmlFor="email"
@@ -125,8 +125,8 @@ const LoginPage: React.FC = () => {
           </div>
         </form>
 
-        <div className="mt-8 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-4">
-          <p className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+        <div className="mt-6 sm:mt-8 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-3 sm:p-4">
+          <p className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white mb-2 sm:mb-3">
             Demo Quick Login
           </p>
           <div className="space-y-2">
@@ -135,9 +135,9 @@ const LoginPage: React.FC = () => {
                 key={account.role}
                 type="button"
                 onClick={() => handleDemoFill(account)}
-                className="w-full text-left rounded-md border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-900 px-3 py-2 hover:bg-blue-50 dark:hover:bg-gray-700 transition"
+                className="w-full text-left rounded-md border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-900 px-2 sm:px-3 py-1.5 sm:py-2 hover:bg-blue-50 dark:hover:bg-gray-700 transition"
               >
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                <p className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">
                   {account.role}
                 </p>
                 <p className="text-xs text-gray-600 dark:text-gray-400">
@@ -148,7 +148,7 @@ const LoginPage: React.FC = () => {
           </div>
         </div>
 
-        <p className="mt-10 text-center text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-6 sm:mt-10 text-center text-xs sm:text-sm text-gray-500 dark:text-gray-400">
           Not a member?
           <a
             href="/signup"
