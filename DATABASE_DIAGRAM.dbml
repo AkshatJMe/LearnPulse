@@ -1,0 +1,229 @@
+// LearnPulse Database Schema in DBML Format
+// Use at https://dbdiagram.io/
+
+Table users {
+  _id ObjectId [primary key]
+  firstName varchar [not null]
+  lastName varchar [not null]
+  email varchar [not null, unique]
+  password varchar [not null]
+  accountType varchar [note: 'admin | instructor | student']
+  active boolean [default: true]
+  approved boolean [default: true]
+  additionalDetails ObjectId [ref: > profiles._id]
+  courses ObjectId[] [ref: > courses._id, note: 'Array of course IDs']
+  image varchar
+  token varchar [note: 'Optional authentication token']
+  resetPasswordTokenExpires timestamp
+  courseProgress ObjectId[] [ref: > course_progress._id, note: 'Array of progress IDs']
+  wishlist ObjectId [ref: > wishlists._id]
+  cart ObjectId [ref: > carts._id, unique]
+  totalRevenue number [note: 'Revenue for instructors']
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table profiles {
+  _id ObjectId [primary key]
+  gender varchar [note: 'User gender']
+  dateOfBirth varchar [note: 'Date of birth']
+  about varchar [note: 'About user']
+  contactNumber number
+}
+
+Table courses {
+  _id ObjectId [primary key]
+  courseName varchar [not null]
+  courseDescription text
+  instructor ObjectId [ref: > users._id, not null]
+  whatYouWillLearn varchar
+  courseContent ObjectId[] [ref: > sections._id, note: 'Array of section IDs']
+  ratingAndReviews ObjectId[] [ref: > rating_reviews._id, note: 'Array of review IDs']
+  price number
+  thumbnail varchar
+  category ObjectId [ref: > categories._id]
+  tag varchar[] [not null, note: 'Course tags']
+  studentsEnrolled ObjectId[] [ref: > users._id, not null, note: 'Array of student IDs']
+  instructions varchar[]
+  status varchar [note: 'Draft | Published | Pending | Rejected', default: 'Draft']
+  averageRating number [note: 'Average rating 0-5', default: 0]
+  totalRatings number [default: 0]
+  isApproved boolean [default: false]
+  rejectionReason varchar
+  totalRevenue number
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table categories {
+  _id ObjectId [primary key]
+  name varchar [not null]
+  description varchar
+  courses ObjectId[] [ref: > courses._id, note: 'Array of course IDs']
+}
+
+Table sections {
+  _id ObjectId [primary key]
+  sectionName varchar [not null]
+  subSection ObjectId[] [ref: > sub_sections._id, not null, note: 'Array of subsection IDs']
+}
+
+Table sub_sections {
+  _id ObjectId [primary key]
+  title varchar
+  timeDuration varchar [note: 'Duration of video']
+  description varchar
+  videoUrl varchar
+}
+
+Table carts {
+  _id ObjectId [primary key]
+  userId ObjectId [ref: > users._id, not null, unique]
+  courses ObjectId[] [ref: > courses._id, note: 'Array of course IDs']
+  totalAmount number [default: 0]
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table wishlists {
+  _id ObjectId [primary key]
+  userId ObjectId [ref: > users._id, not null, unique]
+  courses ObjectId[] [ref: > courses._id, note: 'Array of course IDs']
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table payments {
+  _id ObjectId [primary key]
+  userId ObjectId [ref: > users._id, not null]
+  courses ObjectId[] [ref: > courses._id, not null, note: 'Array of course IDs']
+  amount number [not null]
+  currency varchar [default: 'USD']
+  paymentMethod varchar [default: 'stripe']
+  stripeSessionId varchar
+  stripePaymentIntentId varchar
+  status varchar [note: 'pending | completed | failed | refunded', default: 'pending']
+  couponCode varchar
+  discountAmount number [default: 0]
+  finalAmount number [not null]
+  paymentDate timestamp
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table certificates {
+  _id ObjectId [primary key]
+  userId ObjectId [ref: > users._id, not null]
+  courseId ObjectId [ref: > courses._id, not null]
+  certificateId varchar [not null, unique, note: 'Unique certificate identifier']
+  studentName varchar [not null]
+  courseName varchar [not null]
+  instructorName varchar [not null]
+  completionDate timestamp
+  issueDate timestamp
+  certificateUrl varchar [note: 'URL to certificate PDF/image']
+  isValid boolean
+  createdAt timestamp
+}
+
+Table rating_reviews {
+  _id ObjectId [primary key]
+  user ObjectId [ref: > users._id, not null]
+  rating number [not null, note: '1-5 rating']
+  review text [not null]
+  course ObjectId [ref: > courses._id, not null]
+  isApproved boolean [default: true]
+  isRemoved boolean [default: false]
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table quizzes {
+  _id ObjectId [primary key]
+  courseId ObjectId [ref: > courses._id, not null]
+  sectionId ObjectId [ref: > sections._id]
+  subSectionId ObjectId [ref: > sub_sections._id]
+  title varchar [not null]
+  description varchar
+  questions json [note: 'Array of question objects with options and answers']
+  totalPoints number [not null, default: 0]
+  passingScore number [not null, default: 60]
+  duration number [note: 'Duration in minutes', default: 30]
+  attemptLimit number [default: 3]
+  isActive boolean [default: true]
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table quiz_results {
+  _id ObjectId [primary key]
+  userId ObjectId [ref: > users._id, not null]
+  quizId ObjectId [ref: > quizzes._id, not null]
+  courseId ObjectId [ref: > courses._id, not null]
+  answers json [note: 'Array of answers with correctness']
+  score number [not null]
+  percentage number [not null]
+  passed boolean [not null]
+  attemptNumber number [not null]
+  timeTaken number [note: 'Time taken in seconds']
+  submittedAt timestamp [not null]
+  createdAt timestamp
+}
+
+Table course_progress {
+  _id ObjectId [primary key]
+  courseID ObjectId [ref: > courses._id]
+  userId ObjectId [ref: > users._id]
+  completedVideos ObjectId[] [ref: > sub_sections._id, note: 'Array of completed subsection IDs']
+}
+
+Table discussions {
+  _id ObjectId [primary key]
+  courseId ObjectId [ref: > courses._id, not null]
+  sectionId ObjectId [ref: > sections._id]
+  subSectionId ObjectId [ref: > sub_sections._id]
+  userId ObjectId [ref: > users._id, not null]
+  content text [not null]
+  parentId ObjectId [ref: > discussions._id, note: 'For nested replies']
+  isInstructorReply boolean
+  isPinned boolean
+  likes ObjectId[] [note: 'Array of user IDs who liked']
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table coupons {
+  _id ObjectId [primary key]
+  code varchar [not null, unique]
+  discountPercent number [note: '0-100']
+  discountAmount number [note: 'Fixed discount amount']
+  discountType varchar [note: 'percent | fixed', default: 'percent']
+  expiryDate timestamp
+  maxUsage number [note: 'Null means unlimited']
+  usedCount number
+  courseId ObjectId [ref: > courses._id, note: 'Optional: specific to a course']
+  isActive boolean
+  minPurchaseAmount number [note: 'Minimum purchase to use coupon']
+  createdAt timestamp
+  updatedAt timestamp
+}
+
+Table otps {
+  _id ObjectId [primary key]
+  email varchar [not null]
+  otp varchar [not null]
+  createdAt timestamp [note: 'Expires after 5 minutes']
+}
+
+// Key Relationships Summary:
+// - Users have many Courses (instructor relationship)
+// - Users have many Courses (enrolled students)
+// - Users have one Cart and one Wishlist
+// - Courses belong to one Category
+// - Courses have many Sections
+// - Sections have many SubSections
+// - Users have many Ratings/Reviews
+// - Users have many Course Progress records
+// - Users have many Quiz Results
+// - Courses have many Payments (transactions)
+// - Courses have many Certificates (completions)
