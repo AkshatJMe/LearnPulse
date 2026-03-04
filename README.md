@@ -44,32 +44,88 @@ The front end of LearnPulse includes all the essential pages required for an ed-
 ### For Students:
 
 - **Homepage 🏠:** A brief introduction to the platform with links to the course list and user details and a random background.
-- **Course List 📚:** A comprehensive list of all available courses, including descriptions and ratings.
-- **Cart Checkout 🛒:** Facilitates course purchases.
-- **Course Content 🎓:** Presents detailed content for specific courses, including videos and related materials.
-- **User Details 👤:** Shows details about the student’s account, such as name and email.
-- **User Edit Details ✏️:** Allows students to update their account information.
+- **Course List 📚:** A comprehensive list of all available courses, including descriptions, ratings, and filtering options.
+- **Course Details Page 👀:** Detailed view of individual courses with descriptions, instructor information, reviews, and ratings.
+- **Cart Management 🛒:** Add/remove courses from cart, view cart with course details, subtotal, and checkout functionality.
+- **Course Content 🎓:** Presents detailed content for specific courses, including videos, sections, subsections, and related materials.
+- **Video Player 🎥:** Video streaming functionality with play/pause, progress tracking, and quality settings.
+- **Quiz/Assessments ❓:** Interactive quizzes with multiple-choice questions, instant feedback, and score tracking.
+- **Wishlist 💖:** Save courses for later viewing with easy access and organization.
+- **Ratings & Reviews ⭐:** View and submit course ratings and written reviews.
+- **Discussion Forum 💬:** Engage with other students and instructors through course discussions and Q&A.
+- **Learning Progress 📊:** Track course completion percentage, section progress, and learning timeline.
+- **Certificate Download 🎓:** Download completion certificates upon course completion.
+- **Notification Center 🔔:** View announcements, course updates, payment confirmations, and system notifications.
+- **User Profile 👤:** View student profile with enrolled courses, learning history, and account statistics.
+- **Edit Profile ✏️:** Update personal information, profile picture, and account settings.
+- **About Page 📖:** Learn about the platform, its mission, and values.
+- **Contact Page 📞:** Send inquiries and contact the support team.
+- **Authentication Pages 🔐:** Sign up, login, email verification, password reset, and forgot password functionality.
+- **Payment Processing 💳:** Secure checkout with Razorpay and Stripe integration.
 
 ### For Instructors:
 
-- **Dashboard 📊:** Provides an overview of the instructor’s courses, including ratings and feedback.
-- **Insights 📈:** Offers detailed metrics on the instructor’s courses, such as views and clicks.
-- **Course Management Pages 🛠️:** Enables creation, updating, and deletion of courses, as well as management of course content and pricing.
-- **View and Edit Profile Details 👀:** Allows instructors to view and modify their profile information.
+- **Dashboard 📊:** Comprehensive overview of all courses, student enrollments, ratings, and feedback.
+- **Instructor Insights 📈:** Advanced analytics showing course views, clicks, conversion rates, and revenue metrics.
+- **Course Management 🛠️:** Create, update, delete, and publish courses.
+- **Course Builder 🏗️:** Intuitive interface for structuring courses with sections and subsections.
+- **Section Management 📑:** Organize course content into logical sections with descriptions.
+- **Sub-section Management 📄:** Add video lectures, resources, and materials to subsections.
+- **Video Upload 🎬:** Upload and manage course videos with Cloudinary integration.
+- **Course Pricing 💰:** Set course prices, discounts, and promotional offers.
+- **Quiz Builder ❓:** Create quizzes with questions, options, and correct answers.
+- **Course Approval Status ✅:** Track course submission status and approval by admin.
+- **View & Edit Profile 👀:** Manage instructor profile, bio, credentials, and avatar.
+- **Revenue Tracking 💹:** Monitor course sales and earnings analytics.
+- **Student Interactions 💭:** Respond to course discussions and student inquiries.
 
 ### For Admin:
 
-- **Category Management 📂:** Allows the creation and management of course categories.
-- **User Management 👥:** Lists all students and instructors, providing an overview of the user base.
+- **Admin Dashboard 📊:** Overall platform analytics, user statistics, and system health monitoring.
+- **Category Management 📂:** Create, update, and delete course categories.
+- **Category CRUD 🔧:** Full control over category organization and hierarchy.
+- **User Management 👥:** View all students and instructors with detailed profiles and account status.
+- **User Approval ✅:** Approve or reject new instructor registrations.
+- **Course Approval 📚:** Review and approve courses before they go live to students.
+- **Coupon Management 🎟️:** Create, manage, and track promotional coupons and discount codes.
+- **Analytics & Reports 📈:** Advanced metrics on platform usage, revenue, student engagement, and course performance.
+- **Financial Tracking 💰:** Monitor payments, refunds, and revenue distribution.
 
 ## Back End Features ⚙️
 
-The back-end of LearnPulse is built with NodeJS and ExpressJS, providing APIs for the front end to interact with:
+The back-end of LearnPulse is built with NodeJS and ExpressJS, providing robust APIs for the front end to interact with:
 
-- **User Authentication and Authorization 🔐:** Includes sign-up, login, OTP verification, and forgot password features for enhanced security.
-- **Course Management 🛠️:** Allows instructors to manage courses, including creation, updates, deletions, and media management. Students can view and rate courses.
-- **Payment Integration 💳:** Handles course purchases through a checkout process integrated with Razorpay for payment processing.
-- **Cloud-based Media Management ☁️:** Uses Cloudinary for managing and storing media content like images, videos, and documents.
+- **User Authentication & Authorization 🔐:** Complete authentication system with sign-up, login, email verification, OTP verification, password reset, and JWT-based session management.
+- **Role-Based Access Control 👮:** Granular permissions for Students, Instructors, and Admins with middleware-based authorization.
+- **User Management 👥:** CRUD operations for user profiles, profile pictures, account settings, and user preferences.
+- **Course Management 🛠️:** Complete CRUD operations for courses with detailed information, descriptions, pricing, and status tracking.
+- **Section & Sub-Section Management 📑:** Hierarchical organization of course content with sections and video subsections.
+- **Video Hosting & Streaming 🎥:** Integration with Cloudinary for video uploads, storage, and streaming capabilities.
+- **Quiz System 🎯:** Full quiz functionality with question management, multiple-choice options, scoring, and result tracking.
+- **Course Progress Tracking 📊:** Track student progress through courses, sections, video completion, and quiz attempts.
+- **Rating & Review System ⭐:** Allow students to rate and review courses with average ratings and review display.
+- **Discussion Forum 💬:** Enable course discussions and Q&A between students and instructors.
+- **Wishlist Management 💖:** Students can add/remove courses from wishlist and view saved courses.
+- **Cart Management 🛒:** Shopping cart functionality with add, remove, and checkout operations.
+- **Payment Integration 💳:** Multi-payment gateway support:
+  - **Stripe Integration:** International payment support with card processing and payment intent handling.
+- **Payment Management:** Track payments, refunds, invoices, and transaction history.
+- **Coupon System 🎟️:** Create and apply discount coupons with validation and tracking.
+- **Email Notifications 📧:** Automated emails for:
+  - Account verification
+  - Password reset
+  - Course enrollment confirmation
+  - Payment receipts
+  - Course updates and announcements
+- **Cloud-based Media Management ☁️:** Cloudinary integration for secure image and video uploads, transformation, and delivery.
+- **Analytics & Reporting 📈:** Comprehensive analytics for:
+  - Course performance metrics
+  - Student engagement data
+  - Revenue analytics
+  - Platform-wide statistics
+- **Certificate Management 🎓:** Automatic certificate generation and distribution upon course completion.
+- **Data Validation & Error Handling:** Robust input validation and comprehensive error responses.
+- **Admin Controls 🔧:** Administrative endpoints for managing categories, users, courses, and coupons.
 
 ## 🖥️ Screen Preview :
 
